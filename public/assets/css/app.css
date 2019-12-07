@@ -2681,6 +2681,10 @@ body {
         float: none !important;
         margin-top: 20px;
     }
+
+    #post_title {
+        font-size: 30px;
+    }
 }
 
 

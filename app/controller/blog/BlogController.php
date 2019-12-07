@@ -106,10 +106,11 @@ class BlogController
 
         if ($name == "") $name = "_";
         $name = \strtolower($name);
+
+        $name = preg_replace( '/[^a-z0-9_ -]/i', '', $name);
+
         $name = (new Str($name))->replace([
-            "/"=>"-",
-            " "=>"-",
-            ":"=>"_"
+            " "=>"-"
         ]);
         
         while ((new PostsTable)->select("link")->where("link", $name)->andwhere("blogid", $blog)->first()["link"] !== null)
