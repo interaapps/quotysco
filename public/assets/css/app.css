@@ -2648,6 +2648,39 @@ body {
     #post_info {
         float: none;
     }
+
+    .blog_post_date {
+        text-align: right;
+        float: none;
+        display: block;
+        margin-bottom: 6px;
+        position: absolute;
+        bottom: 5px;
+        right: 25px;
+    }
+
+    .blog_post {
+        padding-bottom: 40px;
+    }
+
+    #blog_user {
+        display: block;
+    }
+
+    #blog_user_image {
+        text-align: center;
+        display: block;
+        margin: 0px auto;
+    }
+
+    #blog_user_info {
+        padding: 5px 0px;
+    }
+
+    #blog_user #follow {
+        float: none !important;
+        margin-top: 20px;
+    }
 }
 
 

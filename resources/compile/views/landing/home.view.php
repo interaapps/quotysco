@@ -10,7 +10,7 @@
                         A simple and free way to create your blog.
                     </p>
                     <br><br>
-                    <a href="https:/accounts.interaapps.de/iaauth/9" class="btn qred">Start</a>
+                    <a href="https://accounts.interaapps.de/iaauth/9" class="btn qred">Start</a>
                 </div>
                 <div class="col_500px p10px">
                     <img width="80%" src="/assets/images/illustrations/reading_list.svg">

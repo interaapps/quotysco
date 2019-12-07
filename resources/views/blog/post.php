@@ -1,4 +1,21 @@
-<?php tmpl("header",["title"=>"Post"]); ?>
+<?php tmpl("header",[
+    "title"=>htmlspecialchars($blog["name"])."'s Blog",
+    "extrameta"=>'
+    <meta name="og:title" property="og:title" content="'.htmlspecialchars($postTitle).'">
+    <meta name="twitter:creator" property="twitter:creator" content="'.htmlspecialchars($blog["name"]).'">
+    <meta name="twitter:site" property="twitter:site" content="'.str_replace("\n","\\n",substr(strip_tags($contents), 0, 100)).'...">
+    <meta property="og:url" content="<?php echo ($_SERVER["REQUEST_URI"]); ?>" />
+    <meta property="og:title" content="'.htmlspecialchars($postTitle).'" />
+    <meta property="og:description" content="'.str_replace("\n","\\n",substr(strip_tags($contents), 0, 50)).'..." />
+    '.
+    ($image != null ?
+    '
+    <meta name="twitter:image" content="'.htmlspecialchars($image).'">
+    <meta property="og:image" content="'.htmlspecialchars($image).'" />
+    '
+    : "" )
+]); ?>
+
 <script>hljs.initHighlightingOnLoad();</script>
     <app>
         <div style="display: flex">

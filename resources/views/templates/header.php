@@ -41,6 +41,14 @@
 
             <a style="cursor:pointer;" id="darkthemeswitch" class="navdropdownlink"><i class="material-icons-outlined">nights_stay</i><span>Darktheme</span></a>
         </div>
+        
+        <style>
+        <?php if( strlen(app\classes\User::getUserObject()->color) == 7 ):?>
+        #userprofile img {
+            border: solid 2px <?php echo (app\classes\User::getUserObject()->color); ?>;
+        }
+        <?php endif; ?>
+        </style>
         <?php else: ?>
             <a href="https://accounts.interaapps.de/iaauth/9" class="btn qred" id="userprofile" style="float: right; line-height: 20px;">Login</a>
             
@@ -49,6 +57,7 @@
                     padding-bottom: 10px !important;
                     padding-left: 22px !important;
                 }
+                
             </style>
         <?php endif; ?>
     </div>

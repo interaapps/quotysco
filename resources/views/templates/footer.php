@@ -3,7 +3,7 @@
             <img src="/assets/images/big_logo_white.png" width="200px" style="user-select: none">
             <?php if(!\app\classes\User::loggedIn()):?>
                 <br><br>
-                <a href="https:/accounts.interaapps.de/iaauth/9" class="btn">Start</a>
+                <a href="https::/accounts.interaapps.de/iaauth/9" class="btn">Start</a>
             <?php endif; ?>
         </div>
         <br>
@@ -47,6 +47,11 @@
         }
     }
     </style>
+
+    <script>
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(setDarkTheme)
+    window.matchMedia("(prefers-color-scheme: light)").addListener(setLightTheme)
+    </script>
     <?php endif; ?>
 </body>
 </html>
