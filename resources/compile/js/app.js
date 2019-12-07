@@ -62,7 +62,10 @@ $(document).ready(function(){
         setDarkTheme();
         $("#darkthemeswitch i").html("wb_sunny");
         $("#darkthemeswitch span").text("Light Theme");
-    } else {
+    } else if(getCookie("darktheme") == "auto") {
+        $("#darkthemeswitch span").text("Auto Theme");
+        
+    } {
         $("#darkthemeswitch i").html("nights_stay");
         $("#darkthemeswitch span").text("Dark Theme");
     }
@@ -76,7 +79,7 @@ $(document).ready(function(){
             setCookie("darktheme", "true", 1000000);
             setDarkTheme();
             $("#darkthemeswitch span").text("Light Theme");
-        }
+        } 
     });
 
     

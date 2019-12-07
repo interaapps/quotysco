@@ -17,6 +17,7 @@
 #?>
     @if(($postUser->userkey != null))#
     <a href="/{{htmlspecialchars($blog["name"])}}/{{$post["link"]}}" class="blog_post ripple">
+    <span class="blog_post_date">{{$post["created"]}} - {{ $readTime }} min</span>
         <div class="blog_post_user">
             <img class="blog_post_user_image" src="{{$user->profilepic}}" />
             @if(($blog["type"]=="GROUP"))#
@@ -24,7 +25,6 @@
             @endif
             <span class="blog_post_user_name">{{$user->username}}@if(($blog["type"]=="GROUP"))# @ {{$blog["name"]}}@endif</span>
         </div>
-        <span class="blog_post_date">{{$post["created"]}} - {{ $readTime }} min</span>
         <h1 class="blog_post_title">{{htmlspecialchars($post["title"])}}</h1>
         @if((htmlspecialchars($post["image"]) != ""))#
         <img class="blog_post_class" id="post_image" src="{{htmlspecialchars($post["image"])}}" />

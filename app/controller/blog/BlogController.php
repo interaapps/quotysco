@@ -111,13 +111,17 @@ class BlogController
             " "=>"-",
             ":"=>"_"
         ]);
-
-        if ((new PostsTable)->select("link")->where("link", $name)->andwhere("blogid", $blog)->first()["link"] !== null)
+        
+        while ((new PostsTable)->select("link")->where("link", $name)->andwhere("blogid", $blog)->first()["link"] !== null)
             $name .= "_";
+        
 
         return $name;
     }
 
+    /**
+     * Gets the current users role
+     */
     public static function myBlogRole($blog) {
         if (User::loggedIn()) {
             $user = (new BlogUsersTable)
@@ -131,6 +135,10 @@ class BlogController
         return false;
     }
 
+
+    /**
+     * Checking if current user follows a certain blog
+     */
     public static function followed(){
         global $_ROUTEVAR;
 
@@ -146,6 +154,9 @@ class BlogController
         return "-1";
     }
 
+    /**
+     * Follows a certain blog per RouterVariable
+     */
     public static function follow() {
         global $_ROUTEVAR;
 

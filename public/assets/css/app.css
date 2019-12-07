@@ -2207,7 +2207,6 @@ space30 { margin-top: 30px; display: block;}
     --block-background: #FFFFFF;
     --text-color: #323232;
     --link-color: #434343;
-    
 }
 
 * {
@@ -2355,6 +2354,7 @@ body {
     color: rgb(200, 0, 72);
     font-size: 40px;
     margin-top: 20px;
+    word-break: break-all;
 }
 
 #post_info {
@@ -2373,7 +2373,7 @@ body {
 
 #post_user {
     display: flex;
-    margin: 20px 0px;
+    margin: 40px 0px;
 }
 
 #post_user div {
@@ -2497,6 +2497,7 @@ body {
 .blog_post_title {
     color: rgb(200, 0, 72);
     font-size: 28px;
+    word-break: break-all;
 }
 
 .blog_post_image {
@@ -2643,6 +2644,10 @@ body {
         padding-bottom: initial;
         padding-left: initial;
     }
+
+    #post_info {
+        float: none;
+    }
 }
 
 
@@ -2665,6 +2670,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #767676;
 }
+
+
 .hljs {
     display: block;
     overflow-x: auto;

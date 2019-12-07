@@ -17,6 +17,7 @@
 ?>
     <?php if($postUser->userkey != null):?>
     <a href="/<?php echo (htmlspecialchars($blog["name"])); ?>/<?php echo ($post["link"]); ?>" class="blog_post ripple">
+    <span class="blog_post_date"><?php echo ($post["created"]); ?> - <?php echo ( $readTime ); ?> min</span>
         <div class="blog_post_user">
             <img class="blog_post_user_image" src="<?php echo ($user->profilepic); ?>" />
             <?php if($blog["type"]=="GROUP"):?>
@@ -24,7 +25,6 @@
             <?php endif; ?>
             <span class="blog_post_user_name"><?php echo ($user->username); ?><?php if($blog["type"]=="GROUP"):?> @ <?php echo ($blog["name"]); ?><?php endif; ?></span>
         </div>
-        <span class="blog_post_date"><?php echo ($post["created"]); ?> - <?php echo ( $readTime ); ?> min</span>
         <h1 class="blog_post_title"><?php echo (htmlspecialchars($post["title"])); ?></h1>
         <?php if(htmlspecialchars($post["image"]) != ""):?>
         <img class="blog_post_class" id="post_image" src="<?php echo (htmlspecialchars($post["image"])); ?>" />

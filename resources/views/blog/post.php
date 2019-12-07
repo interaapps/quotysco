@@ -4,8 +4,8 @@
         <div style="display: flex">
             <?php view("nav/blog", ["navBlog"=>$blog, "userRank"=>$myRank]); ?>
             <div class="contents_first">
-                <p id="post_info"><?php echo ($information); ?></p>
                 <h1 id="post_title"><?php echo ( $postTitle ); ?></h1>
+                <p id="post_info"><?php echo ($information); ?></p>
                 <div id="post_user">
                     <img id="post_user_profilepic" src="<?php echo ($blog["picture"]); ?>" />
                     <div>

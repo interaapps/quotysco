@@ -85,7 +85,9 @@
                 <a style="display: inline-table; float: right; margin-left: auto;" class="btn disabled">Next page</a>
             <?php endif; ?>
         </div>
+        <?php
+            if (isset($_GET["autotheme"])) echo '<script>setCookie("darktheme", "auto", 1000000);</script>';
+        ?>
     </app>
 
-    
 <?php tmpl("footer"); ?>

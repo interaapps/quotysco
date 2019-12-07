@@ -27,5 +27,26 @@
         Waves.init();
     } catch (error) {}
     </script>
+    @if(( isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] == "auto" ))#
+    <style>
+    @media (prefers-color-scheme: light) {
+        :root {
+            --background: #FFFFFF;
+            --block-background: #FFFFFF;
+            --text-color: #323232;
+            --link-color: #434343;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --background: #1a1e27;
+            --block-background: #212531;
+            --text-color: #FFFFFF;
+            --link-color: #FFFFFF;
+        }
+    }
+    </style>
+    @endif
 </body>
 </html>

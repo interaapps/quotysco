@@ -53,9 +53,18 @@ class NewBlogController
             $out["done"] = true;
         } else $out["error"] = "This name is already taken!";
 
-        if (!(preg_match('#^[A-Za-z0-9_]+$#', $name) && $name != "") && !$ignorePregMatch){
+        if (!(preg_match('#^[A-Za-z0-9_]+$#', $name) &&
+                $name != "" && 
+                !$ignorePregMatch && strlen($name) >= 3 && 
+                strlen($name) <= 30)
+        ){
             $out["done"] = false;
-            $out["error"] = "The name can only contains numbers, letters and underscores";
+            $out["error"] = "The name can only contains numbers, letters and underscores. Minimum 3 letters and maximum 30";
+        }
+
+        if ( count((new BlogUsersTable)->select("id")->where("userid", User::getUserObject()->id)->get()) >= 10 ) {
+            $out["done"] = false;
+            $out["error"] = "You have reached the maximum of Blogs! Contact support@interaapps.de";
         }
         
         return Response::returnJson($out);
