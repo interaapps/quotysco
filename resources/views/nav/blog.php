@@ -1,0 +1,19 @@
+<?php if($userRank !== null && $userRank !== false):?>
+    <div class="navigation_bar">
+        <div style="padding: 14px;">
+        <img id="navigation_bar_profile_picture" src="<?php echo ($navBlog["picture"]); ?>" style="width: 60px; height: 60px; border-radius: 60px; background: #00000011; padding: 2px; vertical-align: middle;" >
+        <a style="vertical-align: middle; margin-left: 10px"><?php echo ($navBlog["name"]); ?></a>
+        </div>
+        <a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>">Blog</a>
+        <a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/new">New article</a>
+        <!--<a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/categories">Categories</a>-->
+        <?php if($userRank == "OWNER"):?>
+            <p>Options</p>
+            <?php if($navBlog["type"] == "GROUP"):?>
+                <!--<a class="navigation_bar_link" href="/<?php echo ($navBlog["name"]); ?>/a/members">Members</a>-->
+            <?php endif; ?>
+            <!--<a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/general">General</a>-->
+            <a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/appeareance">Appeareance</a>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

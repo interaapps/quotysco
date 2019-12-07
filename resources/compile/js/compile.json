@@ -1,0 +1,11 @@
+{
+    "assets/js/app.js": [
+        "Jdom.js",
+        "Cajax.js",
+        "app.js",
+        "waves.js"
+    ],
+    "assets/js/userautocomplete.js": [
+        "autocomplete.js"
+    ]
+}

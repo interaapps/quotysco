@@ -1,0 +1,463 @@
+:root {
+    --background: #FFFFFF;
+    --block-background: #FFFFFF;
+    --text-color: #323232;
+    --link-color: #434343;
+    
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: Jost, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: var(--text-color);
+    font-weight: normal;
+}
+
+body {
+    color: var(--text-color);
+    background: var(--background);
+}
+
+#nav {
+    position: fixed;
+    top: 0px;
+    height: 65px;
+    width: 100%;
+    border-bottom: 1px solid #00000011;
+    background: var(--background);
+    line-height: 65px;
+    z-index: 100000;
+}
+
+#logo {
+    position: absolute;
+    top: 7.5px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+#logo img {
+    height: 50px;
+}
+
+
+
+#navdropdown {
+    display: none;
+    position: absolute;
+    min-height: 100px;
+    min-width: 160px;
+    max-width: 100%;
+    top: 70px;
+    right: 10%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px 2px;
+    border-radius: 7px;
+    background: var(--background);
+    line-height: 29px;
+    z-index: 1000000;
+    padding: 4px 0px;
+}
+
+.navdropdownlink,
+.navdropdownlink:link,
+.navdropdownlink:visited {
+    display: block;
+    padding: 4px 12px;
+    color: var(--link-color);
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.navdropdownlink:hover {
+    background: #00000022;
+}
+
+.navdropdownlink .material-icons-outlined {
+    vertical-align: middle;
+    font-size: 19px;
+    padding-bottom: 3px;
+    margin-right: 6px;
+}
+
+.navdropdownlink img {
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 7px;
+    background: #EEEEEE;
+    border-radius: 30px;
+}
+
+.navdropdownbadge {
+    margin-top: 6px;
+    margin-bottom: 2px;
+    color: #878787;
+    padding: 4px 12px;
+    font-size: 14px;
+}
+
+#navdropdown:hover,
+#userprofile:hover ~ #navdropdown {
+    display: block;
+}
+
+#userprofile:hover,
+#navdropdown:hover ~ #userprofile {
+    padding-bottom: 30px;
+    padding-left: 117px;
+}
+
+#userprofile {
+    top: 11px;
+    right: 10%;
+    position: absolute;
+    cursor: pointer;
+}
+
+#userprofile img {
+    height: 43px;
+    border-radius: 100px;
+}
+
+.contents {
+    margin: 0px auto;
+    max-width: 810px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.contents_first {
+    margin: 0px auto;
+    width: 100%;
+    margin-top: 70px;
+    max-width: 810px;
+    padding: 30px;
+    box-sizing: border-box;
+    background: var(--background);
+}
+
+#post_title {
+    color: rgb(200, 0, 72);
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+#post_info {
+    color: rgba(200, 0, 72, 0.5);
+    font-size: 19px;
+    margin-top: 36px;
+    float: right;
+}
+
+#post_image {
+    max-width: 100%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-radius: 4px;
+}
+
+#post_user {
+    display: flex;
+    margin: 20px 0px;
+}
+
+#post_user div {
+    padding: 2px 15px;
+    box-sizing: border-box;
+}
+
+#post_user_name {
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+#post_user_description {
+    color: var(--text-color);
+    font-size: 17px;
+    height: 17px;
+}
+
+#post_user_profilepic {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+}
+
+#post_contents {
+    color: var(--text-color);
+    font-size: 22px;
+
+}
+
+#post_contents img {
+    max-width: 100%;
+    margin-bottom: 10px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+#blog_user {
+    display: flex;
+    padding-top: 40px;
+    margin-bottom: 40px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 1px;
+}
+
+#blog_user_description {
+    color: var(--text-color);
+    font-size: 24px;
+}
+
+#blog_user_image {
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    background: #00000011;
+}
+
+#blog_user_name {
+    color: var(--link-color);
+    font-size: 29px;
+    display: block;
+    font-weight: 500;
+}
+
+#blog_user_info {
+    padding: 2px 26px;
+}
+
+.blog_post {
+    padding: 20px;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.35);
+    box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.35);
+    background: var(--block-background);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.blog_post:last-child  {
+    
+}
+
+.blog_post_user {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.blog_post_user_image {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+
+.blog_post_blog_image {
+    height: 20px;
+    position: absolute;
+    margin-top: 19px;
+    margin-left: 19px;
+    background: var(--block-background);
+    padding: 2px;
+    border-radius: 60px;
+}
+
+.blog_post_user_name {
+    display: block;
+    font-size: 16px;
+    color: #656565;
+    padding-left: 14px;
+    line-height: 40px;
+}
+
+.blog_post_date {
+    float: right;
+    font-size: 15px;
+    color: #767676;
+    margin-top: 7px;
+}
+
+.blog_post_title {
+    color: rgb(200, 0, 72);
+    font-size: 28px;
+}
+
+.blog_post_image {
+    max-width: 100%;
+    max-height: 300px;
+    margin-bottom: 10px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+.blog_post_contents {
+    color: #767676;
+    font-size: 17px;
+    max-height: 350px;
+    overflow: hidden;
+    box-shadow: inset 0px -11px 8px -10px var(--block-background); 
+}
+
+
+.navigation_bar {
+    width: 300px;
+    padding-top: 70px;
+}
+
+.navigation_bar p {
+    padding: 10px;
+    margin-bottom: 6px;
+}
+
+.navigation_bar_link,
+.navigation_bar_link:visited,
+.navigation_bar_link:link {
+    display: block;
+    background: #00000005;
+    color: var(--link-color);
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-bottom: 6px;
+
+    transition: 0.3s;
+    border-radius: 0px 100px 100px 0px;
+}
+
+.navigation_bar_link:hover {
+    background: #00000011;
+}
+
+
+#userautocompletion {
+    border-radius: 5px;
+    border: #EEEEEE 2px solid;
+    border-bottom: none;
+    position: absolute;
+    background: #FFFFFF;
+    min-width: 200px;
+    max-width: 100%;
+    z-index: 100;
+}
+
+.userautocompletionfocussed {
+    background: #EEEEEE;
+}
+
+#userautocompletion div {
+    padding: 10px;
+    border-bottom: #EEEEEE 2px solid;
+    cursor: pointer;
+}
+
+#userautocompletion div img {
+    border-radius: 500px;
+    width: 20px; 
+    height: 20px; 
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.color_qred {color: #c80048}
+[color=qred] {color: #c80048}
+.bgcolor_qred {background-color: #c80048}
+[bgcolor=qred] {background-color: #c80048}
+
+.btn.qred { background: #c80048; color: #FFFFFF; }
+.btn.trn.qred { background: #c8004822; color: #c80048 }
+
+#footer {
+    color: #FFFFFF;
+    padding: 30px;
+    background: #c80048;
+}
+
+#footer h1, #footer h2,
+#footer h3, #footer h4, #footer h5 {
+    color: #FFFFFF;
+}
+
+#footer .col_1000px {
+    margin: 0px auto;
+}
+
+#footer a:not(.btn),
+#footer a:not(.btn):link,
+#footer a:not(.btn):visited {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.center-title {
+    text-align: center;
+    color: rgb(200, 0, 72);
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 720px) {
+    #logo {
+        left: 20px;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+    }
+
+    #logo img {
+        content:url("/assets/images/logo.png");
+    }
+    
+    #userprofile {
+        right: 20px;
+    }
+
+    #navdropdown {
+        right: 0px;
+        width: 100%;
+    }
+
+    #navdropdown:hover,
+    #userprofile:hover ~ #navdropdown {
+        display: none;
+    }
+
+    #userprofile:hover,
+    #navdropdown:hover ~ #userprofile {
+        padding-bottom: initial;
+        padding-left: initial;
+    }
+}
+
+
+
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--link-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #767676;
+}
