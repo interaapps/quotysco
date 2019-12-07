@@ -47,6 +47,11 @@
         }
     }
     </style>
+
+    <script>
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(setDarkTheme)
+    window.matchMedia("(prefers-color-scheme: light)").addListener(setLightTheme)
+    </script>
     @endif
 </body>
 </html>

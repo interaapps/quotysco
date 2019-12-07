@@ -64,7 +64,6 @@ $(document).ready(function(){
         $("#darkthemeswitch span").text("Light Theme");
     } else if(getCookie("darktheme") == "auto") {
         $("#darkthemeswitch span").text("Auto Theme");
-        
     } {
         $("#darkthemeswitch i").html("nights_stay");
         $("#darkthemeswitch span").text("Dark Theme");
