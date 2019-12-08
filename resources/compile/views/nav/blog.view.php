@@ -62,7 +62,7 @@
             if (window.innerWidth <= 720) {
                 if ($(".navigation_bar").css("display") == "block")
                     event.preventDefault();
-                    
+
                 $(".navigation_bar").css("display","");
             }
         });
@@ -72,14 +72,5 @@
                 e.stopPropagation();
         });
 
-        $("#nav").click(function(e){
-            if (window.innerWidth <= 720)
-                e.stopPropagation();
-        });
-
-        $("#nav *").click(function(e){
-            if (window.innerWidth <= 720)
-                e.stopPropagation();
-        });
     </script>
 @endif
