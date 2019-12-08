@@ -14,3 +14,11 @@ Quotysco is an open source blogging platform. More information at http://quotysc
 ```
 Alpha
 ```
+
+## Update logs
+- https://quotysco.ga/quotysco/some-changes-update-a101
+
+
+## Contributing
+
+Rules: https://quotysco.ga/InteraAppsSupport/contributing-github

@@ -36,7 +36,7 @@ class PostController
         ]);
 
         
-        $readingTime = floor(str_word_count(strip_tags($content)) / 200);
+        $readingTime = floor(str_word_count(strip_tags($content)) / 130);
         
         view("blog/post", [
             "postTitle"=>htmlspecialchars($post["title"]),

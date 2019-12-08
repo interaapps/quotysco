@@ -2694,6 +2694,20 @@ html {
     #post_title {
         font-size: 30px;
     }
+
+    .navigation_bar {
+        display: none;
+        position: fixed;
+        background: var(--background);
+        height: 100%;
+        box-shadow: 1px 3px 1px 1px #00000022;
+        height: -webkit-fill-available;
+        z-index: 100000;
+        padding-top: 0px;
+        top: 65px;
+        overflow-x: auto;
+    }
+
 }
 
 

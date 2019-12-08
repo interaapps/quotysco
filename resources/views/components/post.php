@@ -17,7 +17,7 @@
         '<a>'=>"<p>",
         '</a>'=>"</p>",
     ]);
-    $readTime = floor(str_word_count(strip_tags($contents)) / 200);
+    $readTime = floor(str_word_count(strip_tags($contents)) / 130);
 ?>
     <?php if($postUser->userkey != null):?>
     <a href="/<?php echo (htmlspecialchars($blog["name"])); ?>/<?php echo ($post["link"]); ?>" class="blog_post ripple">

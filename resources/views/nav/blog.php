@@ -16,4 +16,70 @@
             <a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/appeareance">Appeareance</a>
         <?php endif; ?>
     </div>
+    <a id="navbar_open"><i class="material-icons">menu</i></a>
+    <style>
+        @media screen and (max-width: 720px) {
+            #logo {
+                left: 70px;
+            }
+
+            #navbar_open {
+                z-index: 10000000;
+                position: fixed;
+                top: 10px;
+                left: 15px;
+                padding: 10px;
+                border-radius: 100px;
+                cursor: pointer;
+            }
+
+            #navbar_open:hover {
+                background: #00000022;
+            }
+
+            #navbar_open i {
+                padding-bottom: 0px;
+                display: block;
+                user-select: none;
+            }
+        }
+    </style>
+    <script>
+        $("#navbar_open").click(function(e){
+            if (window.innerWidth <= 720) {
+                console.log("Baum");
+                if ($(".navigation_bar").css("display") == "block")
+                    $(".navigation_bar").css("display","");
+                else
+                    $(".navigation_bar").css("display","block");
+            } else
+                $(".navigation_bar").css("display","");
+            e.stopPropagation();
+        });
+
+        $(window).click(function(){
+            console.log("Haus");
+            if (window.innerWidth <= 720) {
+                if ($(".navigation_bar").css("display") == "block")
+                    event.preventDefault();
+                    
+                $(".navigation_bar").css("display","");
+            }
+        });
+
+        $(".navigation_bar").click(function(e){
+            if (window.innerWidth <= 720)
+                e.stopPropagation();
+        });
+
+        $("#nav").click(function(e){
+            if (window.innerWidth <= 720)
+                e.stopPropagation();
+        });
+
+        $("#nav *").click(function(e){
+            if (window.innerWidth <= 720)
+                e.stopPropagation();
+        });
+    </script>
 <?php endif; ?>
