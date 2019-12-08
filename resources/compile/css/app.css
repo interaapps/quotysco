@@ -53,6 +53,7 @@ html {
 }
 
 #logo img {
+    display: block;
     height: 50px;
 }
 
@@ -507,6 +508,14 @@ html {
 }
 
 
+::-moz-selection { 
+    color: var(--text-color);
+    background: rgba(200, 0, 72, 0.5);
+}
+::selection { 
+    color: var(--text-color);
+    background: rgba(200, 0, 72, 0.5);
+}
 
 
 /* SCROLLBAR */

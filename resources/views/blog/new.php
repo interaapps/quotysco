@@ -4,7 +4,7 @@
             <?php view("nav/blog", ["navBlog"=>$blog, "userRank"=>$myRank]); ?>
             <div class="contents_first">
                 <p id="post_info">Today</p>
-                <input style="border: none !important; background: transparent !important;" type="text" placeholder="Title" id="post_title">
+                <input <?php if(isset($defaultTitle)):?> value="<?php echo (htmlspecialchars($defaultTitle)); ?>" <?php endif; ?> style="border: none !important; background: transparent !important;" type="text" placeholder="Title" id="post_title">
                 <div id="post_user">
                     <img id="post_user_profilepic" src="<?php echo ($blog["picture"]); ?>" />
                     <div>
@@ -13,38 +13,39 @@
                     </div>
                 </div>
                 
-                <img id="post_image" src="" />
+                <img id="post_image" <?php if(isset($defaultImage)):?> src="<?php echo (htmlspecialchars($defaultImage)); ?>" <?php else: ?> src="" <?php endif; ?> />
                 
                 <a id="filepickeruploadbutton" class="btn qred">Upload Image</a>
                 <a id="removeImageButton" class="btn qred">Remove Image</a>
                 
 
                 <div id="post_contents">
-                <?php view("tools/editor"); ?>
+                <?php view("tools/editor", [
+                    "defaultEditorValue"=> (isset($defaultEditorValue) ? $defaultEditorValue : "Hello! Change something in here :)" )
+                ]); ?>
                 </div>
                 <input style="display: none" id="filepickeruploadinput" type="file">
                
                 <br><br>
                 <a class="btn qred" style="float: right" id="send_button">Send</a>
-                <p>Link: <span id="title_preview"></span></p>
+            
             </div>    
         </div>
         <script>
         var file = null;
         var filePicker = null;
-        $("#post_title").on("change", function(){
-            Cajax.post("/<?php echo ($blog["name"]); ?>/a/check/title", {title: $("#post_title").val()}).then(function(res){
-                $("#title_preview").text(window.location.protocol+"//"+window.location.host+"/<?php echo ($blog["name"]); ?>/"+res.responseText);
-            }).send();
-        });
-
+        
+        
         function send() {
             Cajax.post("", {
                 contents: $("#lehrgaeditor").html(),
                 title: $("#post_title").val(),
                 file: file
             }).then(function(res){
-                window.location = "/<?php echo ($blog["name"]); ?>";
+                if (res.responseText !== "")
+                    window.location = res.responseText;
+                else
+                    window.location = "/<?php echo ($blog["name"]); ?>";
             }).send();
         }
 
@@ -66,7 +67,7 @@
         }); 
         FR.readAsDataURL( this.files[0] );
         filePicker = this;
-        $("#removeImageButton").show();
+        
     });
 
     function upload(thi, done=function(f){}){
@@ -102,17 +103,19 @@
     });
 
     $("#removeImageButton").click(function(){
-        file = null;
+        file = "";
         filePicker = null;
-        $("#removeImageButton").hide();
         $("#post_image").attr("src", "");
     });
-    $("#removeImageButton").hide();
 
 
     </script>
         <style>
         [src=""] {
+            display: none;
+        }
+
+        [src=""] ~ #removeImageButton {
             display: none;
         }
         

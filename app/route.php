@@ -47,6 +47,8 @@ $group = function($router) {
     $router->post("/a/check/title", "!blog\BlogController@checkName");
 
     $router->get("/delete/(.*)", "!blog\PostController@delete");
+    $router->get("/(.*)/edit", "!blog\PostController@editPost");
+    $router->post("/(.*)/edit", "!blog\PostController@saveEditPost");
     $router->get("/(.*)", "!blog\PostController@page");
 };
 

@@ -41,7 +41,11 @@
 
 </div>
 <div id="lehrgaeditor" contenteditable>
-    <p>Try making some changes here. Add your own text or maybe an image.</p>
+    <?php if(isset($defaultEditorValue)):?>
+         <?php echo ($defaultEditorValue); ?>
+    <?php else: ?>
+        <p>Try making some changes here. Add your own text or maybe an image.</p>
+    <?php endif; ?>
 </div>
 </div>
 <div id="lehrgaeditor_a"></div>

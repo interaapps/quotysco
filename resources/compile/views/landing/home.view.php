@@ -1,4 +1,4 @@
-@template(("header",["title"=>"Welcome"]))!
+@template(("header",["title"=>"Welcome", "extrameta"=>'<meta name="Description" content="Create a blog simple within 2 minutes! Login, create blog, start!">']))!
     <app>
         <div class="contents_first">
             <div class="col_1000px col_container">

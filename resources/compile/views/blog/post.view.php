@@ -8,6 +8,7 @@
     <meta property="og:url" content="'.((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]").'" />
     <meta property="og:title" content="'.htmlspecialchars($postTitle).'" />
     <meta property="og:description" content="'.str_replace("\n"," ",substr(strip_tags($contents), 0, 50)).'..." />
+    <meta name="Description" content="'.str_replace("\n"," ",substr(strip_tags($contents), 0, 150)).'">
     '.
     ($image != null ?
     '
@@ -40,12 +41,31 @@
                 <div>
                 @if(($myRank !== false))#
                     <br><br><br>
+                    <a href="/{{$blog["name"]}}/{{$post["link"]}}/edit" class="btn blue">Edit</a>
                     <a href="/{{$blog["name"]}}/delete/{{$post["id"]}}" class="btn red">Delete</a>
-                    <a tooltip="Will be added soon!" class="btn disabled">Edit (soon)</a>
                 @endif
                 </div>
             </div>
         </div>
     </app>
+    
+    <!--<div id="rofl">TEST</div> FINSISH: Selection tools
+
+    <script>
+    $("#post_contents").on("mouseup", function(){
+        if (document.getSelection().toString() !== "") {
+            console.log(document.getSelection());
+            s = window.getSelection();
+            oRange = s.getRangeAt(0);
+            oRect = oRange.getBoundingClientRect();
+            console.log(document.documentElement.scrollTop+oRect.y);
+            $("#rofl").css({
+                position: "relative",
+                top: (document.documentElement.scrollTop)+"px",
+                left: oRect.x+"px"
+            });
+        }
+    });
+    </script>-->
 
 @template(("footer"))!

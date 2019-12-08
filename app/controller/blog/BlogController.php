@@ -74,7 +74,7 @@ class BlogController
                         ->where("name", $_ROUTEVAR[1])
                         ->first();
 
-            if (self::myBlogRole($blog["id"]) != null && isset($_POST["contents"]) && isset($_POST["title"])) {
+            if (self::myBlogRole($blog["id"]) !== false && isset($_POST["contents"]) && isset($_POST["title"])) {
                 $post = new PostsTable;
                 $post->userid = User::getUserObject()->id;
                 $post->blogid = $blog["id"];
@@ -86,10 +86,9 @@ class BlogController
 
                 $post->type = "POST";
                 $post->save();
-                $out["done"] = true;
+                return "/".$_ROUTEVAR[1]."/".$post->link;
             }
         }
-        Response::json($out);
 
     }
 

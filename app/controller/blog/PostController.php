@@ -1,6 +1,7 @@
 <?php
 namespace app\controller\blog;
 
+use app\classes\User;
 use \databases\BlogsTable;
 use \databases\PostsTable;
 use ulole\core\classes\util\Str;
@@ -63,5 +64,67 @@ class PostController
         }
 
         return '{"done":false}';
+    }
+
+    public static function editPost(){
+        global $_ROUTEVAR;
+        if (User::loggedIn()) {
+            $blog = (new BlogsTable)
+                        ->select("*")
+                        ->where("name", $_ROUTEVAR[1])
+                        ->first();
+
+            $post = (new PostsTable)
+                    ->select('*')
+                    ->where("link", $_ROUTEVAR[2])
+                    ->andwhere("blogid", $blog["id"])
+                    ->first();
+
+            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== null) {
+                view("blog/new", [
+                    "blog"=>$blog,
+                    "myRank"=>BlogController::myBlogRole($blog["id"]),
+                    "defaultTitle"=>$post["title"],
+                    "defaultImage"=>$post["image"],
+                    "defaultEditorValue"=>$post["contents"],
+                ]);
+            } else {
+                view("error/404");
+            }
+        }
+    }
+
+    public static function saveEditPost() {
+        global $_ROUTEVAR;
+        if (User::loggedIn()) {
+            $blog = (new BlogsTable)
+                        ->select("*")
+                        ->where("name", $_ROUTEVAR[1])
+                        ->first();
+
+            $post = (new PostsTable)
+                    ->select('*')
+                    ->where("link", $_ROUTEVAR[2])
+                    ->andwhere("blogid", $blog["id"])
+                    ->first();
+
+            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== null) {
+                if (isset($_POST["contents"]) && isset($_POST["title"])) {
+                    $edit = (new PostsTable)->update();
+                    $edit->set("contents", $_POST["contents"]);
+                    $edit->andset("title", $_POST["title"]);
+                    if (isset($_POST["file"]) && $_POST["file"] !== "null" && $_POST["file"] !== null)
+                        $edit->andset("image", $_POST["file"]);
+
+                    $edit->where("id", $post["id"])
+                         ->andwhere("blogid", $blog["id"])
+                         ->run();
+                    
+                    return "/".$_ROUTEVAR[1]."/".$_ROUTEVAR[2];
+                }
+            } else {
+                view("error/404");
+            }
+        }
     }
 }

@@ -54,7 +54,7 @@ class PreventXSS {
                 unset($closedtags[array_search($openedtags[$i], $closedtags)]);
             
         }
-        return $html;
+        return str_replace("</br>","",$html);
     }
 
     public static function preventXSS($html) {

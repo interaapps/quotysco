@@ -41,7 +41,11 @@
 
 </div>
 <div id="lehrgaeditor" contenteditable>
-    <p>Try making some changes here. Add your own text or maybe an image.</p>
+    @if((isset($defaultEditorValue)))#
+         {{$defaultEditorValue}}
+    @else
+        <p>Try making some changes here. Add your own text or maybe an image.</p>
+    @endif
 </div>
 </div>
 <div id="lehrgaeditor_a"></div>
