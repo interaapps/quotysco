@@ -80,7 +80,7 @@ class PostController
                     ->andwhere("blogid", $blog["id"])
                     ->first();
 
-            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== null) {
+            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== false) {
                 view("blog/new", [
                     "blog"=>$blog,
                     "myRank"=>BlogController::myBlogRole($blog["id"]),
@@ -108,7 +108,7 @@ class PostController
                     ->andwhere("blogid", $blog["id"])
                     ->first();
 
-            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== null) {
+            if ($post["id"] !== null && BlogController::myBlogRole($blog["id"]) !== false) {
                 if (isset($_POST["contents"]) && isset($_POST["title"])) {
                     $edit = (new PostsTable)->update();
                     $edit->set("contents", $_POST["contents"]);

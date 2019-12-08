@@ -25,15 +25,25 @@
                 ]))!
                 </div>
                 <input style="display: none" id="filepickeruploadinput" type="file">
+
+                <p>Link: <span id="title_preview"></span></p>
                
                 <br><br>
-                <a class="btn qred" style="float: right" id="send_button">Send</a>
+                @if((!isset($defaultTitle)))#
+                    <a class="btn qred" style="float: right" id="send_button">Send</a>
+                @endif
             
             </div>    
         </div>
         <script>
         var file = null;
         var filePicker = null;
+
+        $("#post_title").on("change", function(){
+            Cajax.post("/{{$blog["name"]}}/a/check/title", {title: $("#post_title").val()}).then(function(res){
+                $("#title_preview").text(window.location.protocol+"//"+window.location.host+"/{{$blog["name"]}}/"+res.responseText);
+            }).send();
+        });
         
         
         function send() {

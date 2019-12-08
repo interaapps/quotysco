@@ -53,7 +53,7 @@ class BlogController
                         ->where("name", $_ROUTEVAR[1])
                         ->first();
 
-            if (self::myBlogRole($blog["id"]) !== null) {
+            if (self::myBlogRole($blog["id"]) !== false) {
                 view("blog/new", [
                     "blog"=>$blog,
                     "myRank"=>self::myBlogRole($blog["id"])
