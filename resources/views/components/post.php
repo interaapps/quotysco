@@ -12,6 +12,10 @@
         "+++++++YTVID_CLOSE+++++++"=>'',
         "+++++++PASTEFY_OPEN+++++++" =>'',
         "+++++++PASTEFY_CLOSE+++++++"=>'',
+        '<a '=>"<p ",
+        '<a href='=>"<p testattr=",
+        '<a>'=>"<p>",
+        '</a>'=>"</p>",
     ]);
     $readTime = floor(str_word_count(strip_tags($contents)) / 200);
 ?>
