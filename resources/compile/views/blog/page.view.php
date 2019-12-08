@@ -11,7 +11,7 @@
     '
 ]))!
     <app>
-    <div style="display: flex">
+    <div style="display: flex" id="footer_seperator">
             @view(("nav/blog", ["navBlog"=>$blog, "userRank"=>$myRank]))!
             <div class="contents_first">
                 <div id="blog_user">

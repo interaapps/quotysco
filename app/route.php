@@ -40,7 +40,9 @@ $group = function($router) {
     $router->post("/a/appeareance", "!blog\AppeareanceController@save");
 
     $router->get("/a/members", "!blog\MembersController@membersPage");
-    $router->post("/a/members/remove", "!blog\MembersController@deleteUser");
+    $router->post("/a/members/remove", "!blog\MembersController@removeUser");
+    $router->get("/a/members/add", "!blog\MembersController@addUser");
+    $router->post("/a/members/changerank", "!blog\MembersController@changeUserRank");
 
     $router->post("/a/check/title", "!blog\BlogController@checkName");
 

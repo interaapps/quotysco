@@ -36,7 +36,7 @@
             <div class="col_1000px col_container">
                 <div class="col_1000px">
                     <h2 style="font-size: 30px ;margin: 0px auto; text-align: center; display: block">What are you waiting for?</h2><br>
-                    <a style="    margin: 0px auto; display: table; padding: 10px 90px;" href="https:/accounts.interaapps.de/iaauth/9" class="btn qred">Start</a>
+                    <a style="    margin: 0px auto; display: table; padding: 10px 90px;" href="https://accounts.interaapps.de/iaauth/9" class="btn qred">Start</a>
                 </div>
             </div>
         </div>

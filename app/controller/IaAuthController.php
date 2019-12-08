@@ -52,7 +52,14 @@ class IaAuthController
         
         $users = [];
 
-        $fetch = User::findUser([["name", "LIKE", "%".$_POST["search"]."%"] ]);
+        $fetch = User::findUser([[
+            "name",
+            "LIKE",
+            "%".$_POST["search"]."%" ] 
+        ], 10);
+
+    
+
         if (isset($fetch->users))
             $users = $fetch->users;
 

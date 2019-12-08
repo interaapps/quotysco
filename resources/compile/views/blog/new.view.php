@@ -1,10 +1,10 @@
 @template(("header",["title"=>htmlspecialchars($blog["name"])."'s Blog"]))!
     <app>
-        <div style="display: flex">
+        <div style="display: flex" id="footer_seperator">
             @view(("nav/blog", ["navBlog"=>$blog, "userRank"=>$myRank]))!
             <div class="contents_first">
                 <p id="post_info">Today</p>
-                <input style="border: none !important" type="text" placeholder="Title" id="post_title">
+                <input style="border: none !important; background: transparent !important;" type="text" placeholder="Title" id="post_title">
                 <div id="post_user">
                     <img id="post_user_profilepic" src="{{$blog["picture"]}}" />
                     <div>

@@ -39,12 +39,19 @@ class User {
     }
 
 
-    public static function findUser($query) {
+    public static function findUser($query, $limit = false) {
         global $ULOLE_CONFIG_ENV;
-        $postdata = http_build_query(
-            ['key' => $ULOLE_CONFIG_ENV->Auth->interaapps->key,
+        $postdata = 
+            [
+                'key' => $ULOLE_CONFIG_ENV->Auth->interaapps->key,
                 "query"=>json_encode($query)
-            ]);
+            ];
+
+        if ($limit !== false)
+            $postdata["limit"] = $limit;
+
+
+        $postdata = http_build_query($postdata);
     
         $opts = ['http' =>[
                 'method'  => 'POST',
@@ -54,8 +61,6 @@ class User {
         $context  = stream_context_create($opts);
         $result = file_get_contents('https://accounts.interaapps.de/oauth_api/finduser', false, $context);
         $resultJson = json_decode($result);
-    
-       
         return json_decode($result);
     }
 

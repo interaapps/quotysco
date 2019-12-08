@@ -23,6 +23,11 @@ h5 {
 body {
     color: var(--text-color);
     background: var(--background);
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 #nav {
@@ -344,22 +349,22 @@ body {
 
 #userautocompletion {
     border-radius: 5px;
-    border: #EEEEEE 2px solid;
+    border: #00000022 2px solid;
     border-bottom: none;
     position: absolute;
-    background: #FFFFFF;
+    background: var(--block-background);
     min-width: 200px;
     max-width: 100%;
     z-index: 100;
 }
 
 .userautocompletionfocussed {
-    background: #EEEEEE;
+    background: var(--background);
 }
 
 #userautocompletion div {
     padding: 10px;
-    border-bottom: #EEEEEE 2px solid;
+    border-bottom: var(--background) 2px solid;
     cursor: pointer;
 }
 
@@ -405,6 +410,10 @@ body {
     text-align: center;
     color: rgb(200, 0, 72);
     margin-bottom: 20px;
+}
+
+#footer_seperator {
+    min-height: calc(100% - 260px);
 }
 
 @media screen and (max-width: 720px) {

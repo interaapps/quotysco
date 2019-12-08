@@ -123,12 +123,12 @@ class BlogController
     /**
      * Gets the current users role
      */
-    public static function myBlogRole($blog) {
+    public static function myBlogRole($blog, $user=false) {
         if (User::loggedIn()) {
             $user = (new BlogUsersTable)
                 ->select("rank")
                 ->where("blogid", $blog)
-                ->andwhere("userid", User::getUserObject()->id)
+                ->andwhere("userid", ( $user!==false ? $user : User::getUserObject()->id))
                 ->first();
             if ($user["rank"] !== null)
             return $user["rank"];
@@ -147,7 +147,7 @@ class BlogController
                     ->select("*")
                     ->where("name", $_ROUTEVAR[1])
                     ->first();
-        if ($blog["id"] !== null) {
+        if ( User::loggedIn() && $blog["id"] !== null) {
             if ( (new UsersFollowingTable)->select("id")->where("userid", User::getUserObject()->id)->andwhere("following", $blog["id"])->first()["id"] !== null )
                 return "1";
             return "0";
@@ -165,7 +165,7 @@ class BlogController
                     ->select("*")
                     ->where("name", $_ROUTEVAR[1])
                     ->first();
-        if ($blog["id"] !== null) {
+        if (User::loggedIn() && $blog["id"] !== null) {
             if (self::followed() == "1") {
                 (new UsersFollowingTable)->delete()->where("userid", User::getUserObject()->id)->andwhere("following", $blog["id"])->run();
             } else {
@@ -176,5 +176,6 @@ class BlogController
             }
         }
     }
+
 
 }

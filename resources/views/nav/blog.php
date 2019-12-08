@@ -10,7 +10,7 @@
         <?php if($userRank == "OWNER"):?>
             <p>Options</p>
             <?php if($navBlog["type"] == "GROUP"):?>
-                <!--<a class="navigation_bar_link" href="/<?php echo ($navBlog["name"]); ?>/a/members">Members</a>-->
+                <a class="navigation_bar_link" href="/<?php echo ($navBlog["name"]); ?>/a/members">Members</a>
             <?php endif; ?>
             <!--<a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/general">General</a>-->
             <a class="navigation_bar_link ripple" href="/<?php echo ($navBlog["name"]); ?>/a/appeareance">Appeareance</a>

@@ -10,7 +10,7 @@
         @if(($userRank == "OWNER"))#
             <p>Options</p>
             @if(($navBlog["type"] == "GROUP"))#
-                <!--<a class="navigation_bar_link" href="/{{$navBlog["name"]}}/a/members">Members</a>-->
+                <a class="navigation_bar_link" href="/{{$navBlog["name"]}}/a/members">Members</a>
             @endif
             <!--<a class="navigation_bar_link ripple" href="/{{$navBlog["name"]}}/a/general">General</a>-->
             <a class="navigation_bar_link ripple" href="/{{$navBlog["name"]}}/a/appeareance">Appeareance</a>

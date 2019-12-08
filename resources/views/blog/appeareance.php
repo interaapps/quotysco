@@ -1,6 +1,6 @@
 <?php tmpl("header",["title"=>htmlspecialchars($blog["name"])."'s Blog"]); ?>
     <app>
-        <div style="display: flex">
+        <div style="display: flex" id="footer_seperator">
             <?php view("nav/blog", ["navBlog"=>$blog, "userRank"=>$myRank]); ?>
             <div class="contents_first">
             <input style="display: none" id="filepickeruploadinput" type="file">
