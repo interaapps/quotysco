@@ -1,4 +1,5 @@
 <div id="lehrgaeditorouter">
+<input style="display: none" id="editorfilepickeruploadinput" type="file">
     <div class="toolbar">
     <a href="#" data-command="undo"><i class="material-icons">arrow_back</i></a>
     <a href="#" data-command="redo"><i class="material-icons">arrow_forward</i></a>
@@ -185,8 +186,51 @@
     var lehrgaeditor = $("#lehrgaeditor");
 
     $(document).ready(function() {
+        
+        $("#editorfilepickeruploadinput").on("change",function(){
+            if (this.files && this.files[0]) {   
+            var FR = new FileReader();
+            var files = this.files;
+            FR.addEventListener("load", function(e) {
+                //$("#filepickeruploadpreview").attr("src", "");
+                //if ((e.target.result).includes("data:image/")) 
+                //    $("#filepickeruploadpreview").attr("src", e.target.result);
+                
+                request = {
+                    file: e.target.result
+                };
+                
+                if (files[0]) {
+                    request.fileName = files[0].name;
+                }
+                Cajax.post("/fileupload/img", request).then(function(resp) {
+                    parsedJSONReadFilePicker = JSON.parse(resp.responseText);
+                    if (parsedJSONReadFilePicker.done) {
+                        var imageHTML = "<img src='"+parsedJSONReadFilePicker.file+"'>";
+                        if (window.getSelection().focusNode.parentNode.parentNode == document.getElementById("lehrgaeditor")) {
+                            try {
+                                var sel = window.getSelection().focusNode.parentNode;
+                                $(sel).after(imageHTML);
+                            } catch {
+                                lehrgaeditor.append(imageHTML);
+                            }
+                        } else {
+                            lehrgaeditor.append(imageHTML);
+                        }
+
+                        $("#lehrgaeditor img").on("contextmenu", function(e){
+                            $(this).attr("width", prompt("Change the width of the Image: (Default: '' (Empty))", "100%"));
+                            e.preventDefault();                         
+                        });
+                    } 
+                }).send();
+            }); 
+            FR.readAsDataURL( this.files[0] );
+            }
+        });
+
         $("#imageUploadButton").click(function () {
-            alert("soon");
+            $("#editorfilepickeruploadinput").click();
         });
         //$("#imageUpload").on("change", readFile);
     });

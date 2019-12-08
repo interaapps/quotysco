@@ -1,6 +1,7 @@
 @template(("header",[
     "title"=>htmlspecialchars($blog["name"])."'s Blog",
     "extrameta"=>'
+    <meta property="og:type" content="article" />
     <meta name="og:title" property="og:title" content="'.htmlspecialchars($postTitle).'">
     <meta name="twitter:creator" property="twitter:creator" content="'.htmlspecialchars($blog["name"]).'">
     <meta name="twitter:site" property="twitter:site" content="'.str_replace("\n"," ",substr(strip_tags($contents), 0, 100)).'...">
