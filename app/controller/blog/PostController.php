@@ -60,6 +60,8 @@ class PostController
         $post = (new PostsTable)->select("*")->where("id", $_ROUTEVAR[2])->first();
         if ($post["id"] !== null && BlogController::myBlogRole($post["blogid"]) !== false ) {
             (new PostsTable)->delete()->where("id", $_ROUTEVAR[2])->run();
+            http_response_code(301);
+            header("Location: ../");
             return '{"done":true}';
         }
 
