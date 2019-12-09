@@ -93,7 +93,7 @@
                     var deleteComment = "";
 
                     <?php if(\app\classes\User::loggedin()):?>
-                    if ( obj.user.id == <?php echo (\app\classes\User::getUserObject()->id); ?> || <?php echo ($myRank !== false); ?> )
+                    if ( obj.user.id == <?php echo (\app\classes\User::getUserObject()->id); ?> || <?php echo ($myRank !== false ? "true" : "false"); ?> )
                         deleteComment = '<i class="delete_comment material-icons" commentid="'+obj.comment.id+'" style="cursor:pointer; vertical-align: middle; font-size: 19px; margin-left: 5px;">delete</i>';
                     <?php endif; ?>
 

@@ -93,7 +93,7 @@
                     var deleteComment = "";
 
                     @if((\app\classes\User::loggedin()))#
-                    if ( obj.user.id == {{\app\classes\User::getUserObject()->id}} || {{$myRank !== false}} )
+                    if ( obj.user.id == {{\app\classes\User::getUserObject()->id}} || {{$myRank !== false ? "true" : "false"}} )
                         deleteComment = '<i class="delete_comment material-icons" commentid="'+obj.comment.id+'" style="cursor:pointer; vertical-align: middle; font-size: 19px; margin-left: 5px;">delete</i>';
                     @endif
 
