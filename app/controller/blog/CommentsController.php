@@ -113,7 +113,6 @@ class CommentsController {
                     ->andwhere("blogid", $blog["id"])
                     ->first();
 
-                    echo "DELETE2";
             if ($post["id"] == null) return;
 
             $comment = (new CommentsTable)->select("*")
@@ -122,13 +121,11 @@ class CommentsController {
                 ->first();
             if ($comment["id"] == null) return;
 
-            if ($post["userid"] == User::getUserObject()->id || BlogController::myBlogRole($blog["id"]) !== false) {
-                echo "DELETE3";
+            if ($comment["userid"] == User::getUserObject()->id || BlogController::myBlogRole($blog["id"]) !== false) {
                 (new CommentsTable)->delete()
                     ->where("id", $_POST["id"])
                     ->andwhere("postid", $post["id"])
                     ->run();
-                    echo "DELETE4".$_POST["id"];
             }
             
         }
