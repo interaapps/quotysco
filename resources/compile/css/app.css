@@ -175,6 +175,7 @@ html {
 
 #post_user {
     display: flex;
+    text-decoration: none;
     margin: 40px 0px;
 }
 
@@ -415,6 +416,26 @@ html {
 
 #footer_seperator {
     min-height: calc(100% - 260px);
+}
+
+#snackbar {
+    background-color: #ffffff;
+    color: #17fc2e;
+    text-align: center;
+    border-radius: 3px;
+    padding: 16px 32px;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    transition: 0.3s;
+    opacity: 0;
+}
+
+#snackbar.show {
+    transform: translate(-50%, 0%);
+    transition: 0.5s;
+    opacity: 1;
 }
 
 @media screen and (max-width: 720px) {

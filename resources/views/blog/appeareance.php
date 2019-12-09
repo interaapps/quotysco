@@ -129,6 +129,7 @@
             var filePicker = null;
 
             function upload(thi, done=function(f){}){
+                showSnackBar("Uploading image...", "#d66f1a");
                 if (thi.files && thi.files[0]) {   
                     var FR = new FileReader();
                     var files = thi.files;
@@ -148,6 +149,7 @@
                             parsedJSONReadFilePicker = JSON.parse(resp.responseText);
                             if (parsedJSONReadFilePicker.done) {
                                 file = parsedJSONReadFilePicker.file;
+                                showSnackBar("Image uploaded");
                                 done(parsedJSONReadFilePicker.file);
                             } 
                         }).send();
@@ -161,12 +163,14 @@
             });
 
             function save() {
+                showSnackBar("Saving...", "#d66f1a");
                 Cajax.post("", {
                     picture: file,
                     description: $("#blog_user_description").val(),
                     homepage: $("#blog_user_homepage").val()
                 }).then(function(){
                     $("#navigation_bar_profile_picture").attr("src", $("#blog_user_image").attr("src"));
+                    showSnackBar("Saved");
                 }).send();
             }
 

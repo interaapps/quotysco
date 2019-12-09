@@ -43,6 +43,20 @@ function getCookie(cname) {
     return "";
 }
 
+var snackBarTimeout;
+  
+function showSnackBar(text, color="#17fc2e", background="#1e212b") {
+    var snackbar = document.querySelector('#snackbar');
+    snackbar.textContent = text;
+    snackbar.style.color = color;
+    snackbar.style.backgroundColor = background;
+    snackbar.classList.add('show');
+    clearTimeout(snackBarTimeout);
+    snackBarTimeout = setTimeout(() => {
+        snackbar.classList.remove('show');
+    }, 1500);
+}
+
 $(document).ready(function(){
     checkScroll();
     window.onscroll = function() {

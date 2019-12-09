@@ -62,38 +62,40 @@
         </style>
         <script>
             $(".members_member_delete").click(function(){
-                console.log("deleting...");
+                showSnackBar("Deleting...", "#d66f1a");
                 Cajax.post("/<?php echo ($blog["name"]); ?>/a/members/remove", {
                     userid: $(this).attr("user")
                 }).then(function(res) {
                     const parsed = JSON.parse(res.responseText);
                     if (parsed.done){
                         window.location = "";
+                        showSnackBar("Done!");
                     }
                 }).send();
             });
 
             $(".user_rank").on("change", function(){
-                console.log("deleting...");
+                showSnackBar("Changing role...", "#d66f1a");
                 Cajax.post("/<?php echo ($blog["name"]); ?>/a/members/changerank", {
                     userid: $(this).attr("user"),
                     rank: $(this).val()
                 }).then(function(res) {
                     const parsed = JSON.parse(res.responseText);
                     if (parsed.done){
-                        console.log("Holga!");
+                        showSnackBar("Done!");
                     }
                 }).send();
             });
 
             $("#add_user").click(function(){
+                showSnackBar("Adding member...", "#d66f1a");
                 Cajax.post("/<?php echo ($blog["name"]); ?>/a/members/add", {
                     username: $("#userautocomplete").val()
                 }).then(function(res) {
                     if (res.responseText == "true")
                         window.location = "";
                     else
-                        alert("Error");
+                        showSnackBar("Error", "#3232EE");
                 }).send();
             });
         </script>

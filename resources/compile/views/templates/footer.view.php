@@ -53,5 +53,6 @@
     window.matchMedia("(prefers-color-scheme: light)").addListener(setLightTheme)
     </script>
     @endif
+    <a id="snackbar"></a>
 </body>
 </html>

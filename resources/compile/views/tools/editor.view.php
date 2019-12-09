@@ -192,6 +192,7 @@
     $(document).ready(function() {
         
         $("#editorfilepickeruploadinput").on("change",function(){
+            showSnackBar("Adding Image...", "#d66f1a");
             if (this.files && this.files[0]) {   
             var FR = new FileReader();
             var files = this.files;
@@ -226,6 +227,7 @@
                             $(this).attr("width", prompt("Change the width of the Image: (Default: '' (Empty))", "100%"));
                             e.preventDefault();                         
                         });
+                        showSnackBar("Image added");
                     } 
                 }).send();
             }); 

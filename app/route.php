@@ -46,6 +46,10 @@ $group = function($router) {
 
     $router->post("/a/check/title", "!blog\BlogController@checkName");
 
+    $router->get("/(.*)/comments", "!blog\CommentsController@getComments");
+    $router->post("/(.*)/comments/add", "!blog\CommentsController@addComment");
+    $router->post("/(.*)/comments/remove", "!blog\CommentsController@removeComment");
+
     $router->get("/delete/(.*)", "!blog\PostController@delete");
     $router->get("/(.*)/edit", "!blog\PostController@editPost");
     $router->post("/(.*)/edit", "!blog\PostController@saveEditPost");

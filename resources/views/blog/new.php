@@ -5,13 +5,13 @@
             <div class="contents_first">
                 <p id="post_info">Today</p>
                 <input <?php if(isset($defaultTitle)):?> value="<?php echo (htmlspecialchars($defaultTitle)); ?>" <?php endif; ?> style="border: none !important; background: transparent !important;" type="text" placeholder="Title" id="post_title">
-                <div id="post_user">
+                <a href="/<?php echo ($blog["name"]); ?>" id="post_user">
                     <img id="post_user_profilepic" src="<?php echo ($blog["picture"]); ?>" />
                     <div>
-                        <a id="post_user_name"><?php echo ($blog["name"]); ?></a>
+                        <span id="post_user_name"><?php echo ($blog["name"]); ?></span>
                         <p id="post_user_description"><?php echo ($blog["description"]); ?></p>
                     </div>
-                </div>
+                </a>
                 
                 <img id="post_image" <?php if(isset($defaultImage)):?> src="<?php echo (htmlspecialchars($defaultImage)); ?>" <?php else: ?> src="" <?php endif; ?> />
                 
@@ -25,23 +25,35 @@
                 ]); ?>
                 </div>
                 <input style="display: none" id="filepickeruploadinput" type="file">
+
+                <p>Link: <span id="title_preview"></span></p>
                
                 <br><br>
-                <a class="btn qred" style="float: right" id="send_button">Send</a>
+                <?php if(!isset($defaultTitle)):?>
+                    <a class="btn qred" style="float: right" id="send_button">Send</a>
+                <?php endif; ?>
             
             </div>    
         </div>
         <script>
         var file = null;
         var filePicker = null;
+
+        $("#post_title").on("change", function(){
+            Cajax.post("/<?php echo ($blog["name"]); ?>/a/check/title", {title: $("#post_title").val()}).then(function(res){
+                $("#title_preview").text(window.location.protocol+"//"+window.location.host+"/<?php echo ($blog["name"]); ?>/"+res.responseText);
+            }).send();
+        });
         
         
         function send() {
+            showSnackBar("Saving...", "#d66f1a");
             Cajax.post("", {
                 contents: $("#lehrgaeditor").html(),
                 title: $("#post_title").val(),
                 file: file
             }).then(function(res){
+                showSnackBar("Done");
                 if (res.responseText !== "")
                     window.location = res.responseText;
                 else
@@ -71,6 +83,7 @@
     });
 
     function upload(thi, done=function(f){}){
+        showSnackBar("Uploading image...", "#d66f1a");
         if (thi.files && thi.files[0]) {   
             var FR = new FileReader();
             var files = thi.files;
@@ -91,6 +104,7 @@
                     if (parsedJSONReadFilePicker.done) {
                         file = parsedJSONReadFilePicker.file;
                         done(parsedJSONReadFilePicker.file);
+                        showSnackBar("Uploaded image");
                     } 
                 }).send();
             }); 

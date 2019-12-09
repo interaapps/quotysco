@@ -90,4 +90,10 @@
         ?>
     </app>
 
+    <script>
+    $(".blog_post").click(function(){
+        showSnackBar("Opening...", "#d66f1a");
+    });
+    </script>
+
 @template(("footer"))!

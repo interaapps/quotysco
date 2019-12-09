@@ -5,13 +5,13 @@
             <div class="contents_first">
                 <p id="post_info">Today</p>
                 <input @if((isset($defaultTitle)))# value="{{htmlspecialchars($defaultTitle)}}" @endif style="border: none !important; background: transparent !important;" type="text" placeholder="Title" id="post_title">
-                <div id="post_user">
+                <a href="/{{$blog["name"]}}" id="post_user">
                     <img id="post_user_profilepic" src="{{$blog["picture"]}}" />
                     <div>
-                        <a id="post_user_name">{{$blog["name"]}}</a>
+                        <span id="post_user_name">{{$blog["name"]}}</span>
                         <p id="post_user_description">{{$blog["description"]}}</p>
                     </div>
-                </div>
+                </a>
                 
                 <img id="post_image" @if((isset($defaultImage)))# src="{{htmlspecialchars($defaultImage)}}" @else src="" @endif />
                 
@@ -47,11 +47,13 @@
         
         
         function send() {
+            showSnackBar("Saving...", "#d66f1a");
             Cajax.post("", {
                 contents: $("#lehrgaeditor").html(),
                 title: $("#post_title").val(),
                 file: file
             }).then(function(res){
+                showSnackBar("Done");
                 if (res.responseText !== "")
                     window.location = res.responseText;
                 else
@@ -81,6 +83,7 @@
     });
 
     function upload(thi, done=function(f){}){
+        showSnackBar("Uploading image...", "#d66f1a");
         if (thi.files && thi.files[0]) {   
             var FR = new FileReader();
             var files = thi.files;
@@ -101,6 +104,7 @@
                     if (parsedJSONReadFilePicker.done) {
                         file = parsedJSONReadFilePicker.file;
                         done(parsedJSONReadFilePicker.file);
+                        showSnackBar("Uploaded image");
                     } 
                 }).send();
             }); 

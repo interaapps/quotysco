@@ -88,8 +88,10 @@
             if (parsed.done) {
                 window.location = parsed.redirect;
                 $("#error").text("").css("display","none");
+                showSnackBar("Done!");
             } else {
-                $("#error").text(parsed.error).css("display","block");;
+                $("#error").text(parsed.error).css("display","block");
+                showSnackBar("Error!", "#3232EE");
             }
             $("#create").addClass("qred");
             $("#create").removeClass("disabled");

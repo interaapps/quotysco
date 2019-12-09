@@ -25,13 +25,13 @@
             <div class="contents_first">
                 <h1 id="post_title">{{ $postTitle }}</h1>
                 <p id="post_info">{{$information}}</p>
-                <div id="post_user">
+                <a href="/{{$blog["name"]}}" id="post_user">
                     <img id="post_user_profilepic" src="{{$blog["picture"]}}" />
                     <div>
-                        <a id="post_user_name">{{$blog["name"]}}</a>
+                        <span id="post_user_name">{{$blog["name"]}}</span>
                         <p id="post_user_description">{{$blog["description"]}}</p>
                     </div>
-                </div>
+                </a>
                 @if(($image!=null))#
                 <img id="post_image" src="{{$image}}" />
                 @endif
@@ -45,9 +45,131 @@
                     <a href="/{{$blog["name"]}}/delete/{{$post["id"]}}" class="btn red">Delete</a>
                 @endif
                 </div>
+
+                <a id="comments_button" class="btn qred" style="display:block">Comments</a>
+                <div id="new_comment_container">
+                    <textarea id="new_comment_input" placeholder="Enter a comment"></textarea>
+                    <a id="new_comment_send" class="btn green" style="display:block">Send</a>
+                </div>
+                <div id="comments">
+                        
+                </div>
             </div>
         </div>
     </app>
+
+    <style>
+    #comments_button {
+        display: block;
+        border: #c80048 solid 2px;
+        background: transparent;
+        color: #c80048;
+        padding: 14px;
+        margin-top: 20px;
+    }
+
+    #new_comment_input {
+        width: 100%;
+        border: #c80048 solid 2px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: 15px 0px;
+        border-radius: 5px;
+        background: transparent;
+        color: var(--text-color);
+    }
+    </style>
+
+    <script>
+
+    function loadComments(page=0){
+        showSnackBar("Loading...", "#d66f1a");
+        Cajax.get("/{{$blog["name"]}}/{{$post["link"]}}/comments", {
+            page: page
+        }).then(function(res){
+                const parsed = JSON.parse(res.responseText);
+                for (obj in parsed) {
+                    obj = parsed[obj];
+                    var deleteComment = "";
+
+                    @if((\app\classes\User::loggedin()))#
+                    if ( obj.user.id == {{\app\classes\User::getUserObject()->id}} )
+                        deleteComment = '<i class="delete_comment material-icons" commentid="'+obj.comment.id+'" style="cursor:pointer; vertical-align: middle; font-size: 19px; margin-left: 5px;">delete</i>';
+                    @endif
+
+                    $("#comments").append(`<div class="blog_post">
+                            <span class="blog_post_date">`+obj.comment.created+` `+deleteComment+`</span>
+                            
+                            <div class="blog_post_user">
+                                <img class="blog_post_user_image" src="`+obj.user.pb+`" />
+                                <span class="blog_post_user_name">`+obj.user.name+`</span>
+                            </div>
+                                <div class="blog_post_contents">
+                                    `+obj.comment.contents+`
+                                </div>
+                        </div>`);
+
+                        $(".delete_comment").click(function(){
+                            showSnackBar("Deleting...", "#d66f1a");
+                            Cajax.post("/{{$blog["name"]}}/{{$post["link"]}}/comments/remove", {
+                                id: $(this).attr("commentid")
+                            }).then(function(res){
+                                $("#comments").html("");
+                                loadComments();
+                                showSnackBar("Deleted!");
+                            }).send();
+                        });
+
+                        showSnackBar("Loading... - Comment: "+obj.comment.id, "#d66f1a");
+                }
+
+                showSnackBar("Done...");
+
+            }).send();
+    }
+
+    var firstLoad = false;
+
+    $(document).ready(function(){
+        $("#comments").hide();
+        $("#new_comment_send").hide();
+        $("#new_comment_container").hide();
+        $("#comments_button").click(function(){
+            $("#comments").toggle();
+            $("#new_comment_container").toggle();
+            if (!firstLoad) {
+                loadComments();
+                firstLoad = true;
+            }
+        });
+
+        $("#new_comment_input").on("focus", function(){
+            $("#new_comment_send").show();
+        });
+
+        $("#new_comment_input").on("focusout", function(){
+            if ($("#new_comment_input").val() == "")
+                $("#new_comment_send").hide();
+        });
+
+        $("#new_comment_send").click(function(){
+            showSnackBar("Saving...", "#d66f1a");
+            Cajax.post("/{{$blog["name"]}}/{{$post["link"]}}/comments/add", {
+                contents: $("#new_comment_input").val()
+            }).then(function(res){
+                showSnackBar(res.responseText);
+                if (res.responseText == "Done") {
+                    $("#comments").html("");
+                    loadComments();
+                }
+                $("#new_comment_input").val("");
+                $("#new_comment_send").hide();
+                
+            }).send();
+        });
+        
+    });
+    </script>
     
     <!--<div id="rofl">TEST</div> FINSISH: Selection tools
 

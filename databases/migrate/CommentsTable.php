@@ -8,9 +8,8 @@ class CommentsTable extends Migrate {
         $this->create('comments', function($table) {
             $table->int("id")->ai();
             $table->int("userid");
-            $table->string("text");
-            $table->int("action");
-            $table->enum("type", ["COMMENT","RESPONSE"]);
+            $table->int("postid");
+            $table->text("contents");
             $table->timestamp("created")->currentTimestamp();
         });
     }
