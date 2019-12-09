@@ -38,7 +38,7 @@ class CommentsController {
 
         foreach ((new CommentsTable)->select("*")->where("postid", $post["id"])->limit("10",$offset)->get() as $obj) {
             $user = User::getUserInformation(User::findUser([ [
-                "id", "=", $post["userid"]
+                "id", "=", $obj["userid"]
             ]])->userkey);
             array_push($out, [
                 "user"=>[
