@@ -26,12 +26,14 @@
                 </div>
                 <input style="display: none" id="filepickeruploadinput" type="file">
 
-                <p>Link: <span id="title_preview"></span></p>
-               
-                <br><br>
                 <?php if(!isset($defaultTitle)):?>
-                    <a class="btn qred" style="float: right" id="send_button">Send</a>
+                <p>Link: <span id="title_preview"></span></p>
                 <?php endif; ?>
+                
+                <br><br>
+                
+                    <a class="btn qred" style="float: right" id="send_button">Send</a>
+                
             
             </div>    
         </div>
