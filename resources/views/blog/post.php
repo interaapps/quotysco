@@ -35,6 +35,9 @@
                 <?php if($image!=null):?>
                 <img id="post_image" src="<?php echo ($image); ?>" />
                 <?php endif; ?>
+                <div id="post_overview">
+                    <h3>Overview:</h3>
+                </div>
                 <div id="post_contents">
                     <?php echo ( $contents ); ?>
                 </div>
@@ -78,9 +81,57 @@
         background: transparent;
         color: var(--text-color);
     }
+
+    #post_overview {
+        position: relative;
+        left: 800px;
+        top: 60px;
+    }
+
+    #post_overview a:link,
+    #post_overview a:active,
+    #post_overview a:visited {
+        color: #c80048;
+        text-decoration: none;
+        display: block;
+    }
+
+    #post_overview h3 {
+        color: #c80048;
+        margin-bottom: 10px;
+    }
     </style>
 
     <script>
+
+    $("#post_contents h1, #post_contents h2").each(function(element){
+        console.log(element);
+        var id = "contents_"+element.tagName+"_"+element.innerText.replace(/[\W_]+/g,"_");
+        element.id = id;
+        if (element.tagName == "H1")
+            $("#post_overview").append($n("a").attr("href", "#"+id).text(element.innerText));
+        else if (element.tagName == "H2")
+            $("#post_overview").append($n("a").style({
+                "paddingLeft": "10px"
+            }).attr("href", "#"+id).text(element.innerText));
+            
+    });
+
+    function escapeHtml(text) {
+       return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    <?php if(!\app\classes\User::loggedin()):?>
+        $("#new_comment_input").click(function(e){
+            open("https://accounts.interaapps.de/iaauth/9");
+            e.preventDefault();
+        });
+    <?php endif; ?>
 
     function loadComments(page=0){
         showSnackBar("Loading...", "#d66f1a");
@@ -105,7 +156,7 @@
                                 <span class="blog_post_user_name">`+obj.user.name+`</span>
                             </div>
                                 <div class="blog_post_contents">
-                                    `+obj.comment.contents+`
+                                    `+escapeHtml(obj.comment.contents)+`
                                 </div>
                         </div>`);
 

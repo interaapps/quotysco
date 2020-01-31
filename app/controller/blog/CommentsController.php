@@ -40,6 +40,7 @@ class CommentsController {
             $user = User::getUserInformation(User::findUser([ [
                 "id", "=", $obj["userid"]
             ]])->userkey);
+
             array_push($out, [
                 "user"=>[
                     "id"=>$user->id,
