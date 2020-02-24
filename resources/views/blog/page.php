@@ -46,7 +46,7 @@
                 <?php endforeach; ?>
  
                 <?php if(count($posts) >= 10):?>
-                <a href="/<?php echo ($blog["name"]); ?>?page=<?php echo ( (isset($_GET["page"]) && is_numeric($_GET["page"]) ) ? $_GET["page"]+1  : "2" ); ?>" style="display: inline-table; float: right; margin-left: auto;" class="btn qred">Next page</a>
+                    <a href="/<?php echo ($blog["name"]); ?>?page=<?php echo ( (isset($_GET["page"]) && is_numeric($_GET["page"]) ) ? $_GET["page"]+1  : "2" ); ?>" style="display: inline-table; float: right; margin-left: auto;" class="btn qred">Next page</a>
                 <?php else: ?>
                     <a style="display: inline-table; float: right; margin-left: auto;" class="btn disabled">Next page</a>
                 <?php endif; ?>

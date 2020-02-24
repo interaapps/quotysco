@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css" type="text/css" charset="utf-8" />
 
     <!-- Style -->
+    <link rel="stylesheet" href="https://accounts.interaapps.de/assets/css/iatb.css">
     <link rel="stylesheet" href="/assets/css/app.css">
 
     <!-- Scripts -->
     <script src="/assets/js/app.js"></script>
+    <script src="https://accounts.interaapps.de/assets/js/iatb.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
 
     <?php if(isset($extrameta)):?>
@@ -26,6 +28,10 @@
     <div id="nav">
         <a id="logo" href="/"><img src="/assets/images/big_logo.png" /></a>
         <?php if( \app\classes\User::loggedIn() ):?>
+        <a id="ia-global-tool-menu">apps</a>
+        <div id="ia-global-tool-menu-dropdown" style="display:none">
+            <iframe src="https://accounts.interaapps.de/api/globalweb/tool" frameborder="0"></iframe>
+        </div>
         <a id="userprofile"><img src="<?php echo (\app\classes\User::getUserObject()->profilepic); ?>" /></a>
         <div id="navdropdown">
             <a href="/" class="navdropdownlink"><i class="material-icons-outlined">home</i><span>Home</span></a>    

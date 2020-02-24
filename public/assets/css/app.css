@@ -2643,6 +2643,15 @@ html {
     opacity: 1;
 }
 
+#ia-global-tool-menu {
+    color: var(--text-color);
+    margin-left: calc(100% - 10% - 105px);
+}
+
+#ia-global-tool-menu-dropdown {
+    right: 10%;
+}
+
 @media screen and (max-width: 720px) {
     #logo {
         left: 20px;

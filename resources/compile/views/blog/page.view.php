@@ -46,7 +46,7 @@
                 @endforeach
  
                 @if((count($posts) >= 10))#
-                <a href="/{{$blog["name"]}}?page={{ (isset($_GET["page"]) && is_numeric($_GET["page"]) ) ? $_GET["page"]+1  : "2" }}" style="display: inline-table; float: right; margin-left: auto;" class="btn qred">Next page</a>
+                    <a href="/{{$blog["name"]}}?page={{ (isset($_GET["page"]) && is_numeric($_GET["page"]) ) ? $_GET["page"]+1  : "2" }}" style="display: inline-table; float: right; margin-left: auto;" class="btn qred">Next page</a>
                 @else
                     <a style="display: inline-table; float: right; margin-left: auto;" class="btn disabled">Next page</a>
                 @endif
