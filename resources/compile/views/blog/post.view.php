@@ -100,6 +100,13 @@
         color: #c80048;
         margin-bottom: 10px;
     }
+
+    
+    @media screen and (max-width: 920px) {
+        #post_overview {
+            display: none;
+        }
+    }
     </style>
 
     <script>
