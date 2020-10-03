@@ -1,8 +1,13 @@
 <?php
-    if (!isset($userList["user_".$post["userid"]] ))
+    global $userList;
+    if (!is_array($userList))
+        $userList = [];
+
+    if (!isset($userList["user_".$post["userid"]] )){
         $userList["user_".$post["userid"]] = \app\classes\User::findUser([ [
                 "id", "=", $post["userid"]
             ] ]);
+        }
     $postUser = $userList["user_".$post["userid"]];
     $user = [];
     if ($postUser->userkey != null)
