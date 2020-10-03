@@ -16,7 +16,7 @@ class BlogController
     public static function page(){
         global $_ROUTEVAR;
         $blog = (new BlogsTable)
-                    ->select("*")
+                    ->select("id, name, picture, description, homepage, type, created")
                     ->where("name", $_ROUTEVAR[1])
                     ->first();
 
@@ -30,7 +30,7 @@ class BlogController
         }
 
         $posts = (new PostsTable)
-                    ->select("*")
+                    ->select("id, blogid, userid, title, link, contents, image, type, created")
                     ->where("blogid", $blog["id"])
                     ->order("id DESC")
                     ->limit("10".$offset)
@@ -38,11 +38,18 @@ class BlogController
 
         if ($blog["id"] == null) return view("error/404");
 
-        view("blog/page", [
+        $params = [
             "blog"=>$blog,
             "posts"=>$posts,
             "myRank"=>self::myBlogRole($blog["id"])
-        ]);
+        ];
+
+        if (isset($_GET["getasjson"])) {
+            Response::setHeader("access-control-allow-origin", "*");
+            return Response::json($params);
+        }
+
+        view("blog/page", $params);
     }
 
     public static function newPage() {

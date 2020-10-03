@@ -5,6 +5,7 @@ use app\classes\User;
 use \databases\BlogsTable;
 use \databases\PostsTable;
 use ulole\core\classes\util\Str;
+use ulole\core\classes\Response;
 
 class PostController 
 {
@@ -20,7 +21,7 @@ class PostController
         if ($blog["id"] == null) return view("error/404");
 
         $post = (new PostsTable)
-                    ->select("*")
+                    ->select("id, blogid, userid, title, link, contents, image, type, created")
                     ->where("link", $_ROUTEVAR[2])
                     ->andwhere("blogid", $blog["id"])
                     ->first();
@@ -39,7 +40,7 @@ class PostController
         
         $readingTime = floor(str_word_count(strip_tags($content)) / 130);
         
-        view("blog/post", [
+        $params = [
             "postTitle"=>htmlspecialchars($post["title"]),
             "contents"=>$content,
             "information"=>htmlspecialchars($post["created"]." - ".$readingTime." min read"),
@@ -52,7 +53,14 @@ class PostController
                 "description"=>htmlspecialchars($blog["description"])
             ],
             "myRank"=>BlogController::myBlogRole($blog["id"])
-        ]);
+        ];
+
+        if (isset($_GET["getasjson"])) {
+            Response::setHeader("access-control-allow-origin", "*");
+            return Response::json($params);
+        }
+
+        view("blog/post", $params);
     }
 
     public static function delete() {

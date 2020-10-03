@@ -17,6 +17,8 @@ class User {
            $userdata,
            $session;
 
+    private static $cachedUsers = [];
+
     public function __construct($key, $id="") {
         $userData = self::getUserInformation($key);
         $this->key = str_replace('"', '\"', $key);
@@ -64,8 +66,12 @@ class User {
         return json_decode($result);
     }
 
-    public static function getUserInformation($user) {
+    public static function getUserInformation($user, $cached=true) {
         global $ULOLE_CONFIG_ENV;
+
+        if (isset(self::$cachedUsers[$user]))
+            return self::$cachedUsers[$user];
+
         $postdata = http_build_query(
             ['key' => $ULOLE_CONFIG_ENV->Auth->interaapps->key,
                 'userkey' => $user
@@ -77,11 +83,13 @@ class User {
                 'content' => $postdata
             ]]);
         $result = file_get_contents('https://accounts.interaapps.de/oauth_api/getuserinformation', false, $context);
+        
         $resultJson = json_decode($result);
     
-        if ($resultJson->valid)
+        if ($resultJson->valid) {
+            self::$cachedUsers[$user] = $resultJson;
             return json_decode($result);
-        else return false;
+        } else return false;
     }
     
     public static function loggedIn() {

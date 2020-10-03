@@ -8,7 +8,7 @@ $blogs = [];
 
     <h1 class="center-title">Newest Posts</h1>
 
-    @foreach(((new databases\PostsTable)->select("*")->order(" id DESC")->limit(3)->get() as $post))#
+    @foreach(((new databases\PostsTable)->select("*")->order(" id DESC")->limit(7)->get() as $post))#
         <?#
         if (!isset($blogs[$post["blogid"]]) ) {
             $blogs[$post["blogid"]] = (new \databases\BlogsTable)->select("*")->where("id", $post["blogid"])->first();
