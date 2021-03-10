@@ -61,7 +61,7 @@ class User {
                 'content' => $postdata
             ]];
         $context  = stream_context_create($opts);
-        $result = file_get_contents('https://accounts.interaapps.de/oauth_api/finduser', false, $context);
+        $result = file_get_contents('https://accounts.interaapps.de/iaauth/api/finduser', false, $context);
         $resultJson = json_decode($result);
         return json_decode($result);
     }
@@ -82,7 +82,7 @@ class User {
                 'header'  => 'Content-Type: application/x-www-form-urlencoded',
                 'content' => $postdata
             ]]);
-        $result = file_get_contents('https://accounts.interaapps.de/oauth_api/getuserinformation', false, $context);
+        $result = file_get_contents('https://accounts.interaapps.de/iaauth/api/getuserinformation', false, $context);
         
         $resultJson = json_decode($result);
     
