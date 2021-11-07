@@ -13,11 +13,11 @@
             <div class="action-button">
                 <div class="action-button" :class="{liked:post.liked}" :style="{color: post.liked ? '#FF4343' : '#767676'}">
                     <i class="uil uil-heart"></i>
-                    <span>{{post.likes_count}}</span>
+                    <span>{{post.like_count}}</span>
                 </div>
                 <div class="action-button">
                     <i class="uil uil-comment"></i>
-                    <span>{{post.comments_count}}</span>
+                    <span>{{post.comment_count}}</span>
                 </div>
             </div>
         </router-link>

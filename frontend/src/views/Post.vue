@@ -15,11 +15,11 @@
             <div id="action-button">
                 <div @click="like" class="action-button" :class="{liked: post.liked}">
                     <i class="uil uil-heart"></i>
-                    <span>{{post.likes_count}}</span>
+                    <span>{{post.like_count}}</span>
                 </div>
                 <div class="action-button comments">
                     <i class="uil uil-comment"></i>
-                    <span>{{post.comments_count}}</span>
+                    <span>{{post.comment_count}}</span>
                 </div>
             </div>
 
@@ -112,9 +112,9 @@ export default {
             await this.api.likePost(this.post.blog.name, this.post.url)
             this.post.liked = await this.api.likedPost(this.post.blog.name, this.post.url)
             if (this.post.liked)
-                this.post.likes_count++
+                this.post.like_count++
             else
-                this.post.likes_count--
+                this.post.like_count--
         } else {
             login()
                 .then(()=>{

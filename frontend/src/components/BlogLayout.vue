@@ -11,7 +11,7 @@
             </p>
             <br>
             <br>
-            <a @click="follow" class="big-action-button" style="padding: 3px 7px; font-size: 17px; width: 100%" :class="{fill: following}">{{following ? 'Following' : 'Follow'}} • {{followers}}</a>
+            <a @click="follow" class="big-action-button" style="padding: 3px 7px; font-size: 17px; width: 100%" :class="{fill: following}">{{following ? 'Following' : 'Follow'}} • {{follower_count}}</a>
         </div>
         <div id="posts" class="layout-left">   
             <slot />
