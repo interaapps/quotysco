@@ -6,7 +6,7 @@
             <router-link to="/category/STORY">Story</router-link>
             <router-link to="/category/SCIENCE">Science</router-link>
             <router-link to="/category/COMPUTER">Computer</router-link>
-            <router-link to="/category/TECHNOLOGY">Stories</router-link>
+            <router-link to="/category/TECHNOLOGY">TECHNOLOGY</router-link>
         </div>
     </div>
     <div class="content">

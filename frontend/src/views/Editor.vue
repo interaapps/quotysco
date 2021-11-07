@@ -13,13 +13,13 @@
             <div @click="save(generateURL())" id="save-button" class="big-action-button">PUBLISH</div>
             <a class="user" :style="{cursor: $route.meta.edit?'':pointer}" @click="!$route.meta.edit? showUserSelection = !showUserSelection :0">
                 <img class="profile-pic" :src="currentBlog.image" alt="">
-                <span>{{currentBlog.type == 'USER' ? currentBlog.name : currentBlog.name+' @ '+currentBlog.name}}</span>
+                <span>{{currentBlog.type == 'USER' ? currentBlog.name : $store.state.auth.user.name+' @ '+currentBlog.name}}</span>
                 <svg v-if="!$route.meta.edit" style="vertical-align: middle; margin-left: 10px; transition: 0.3s" :style="{transform: showUserSelection ? 'rotate(184deg)' : ''}" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4.45508" y="5.01172" width="12.7283" height="3.47135" transform="rotate(45 4.45508 5.01172)" fill="#A4A4A4"/><rect x="20" y="7.45312" width="12.7283" height="3.47135" transform="rotate(135 20 7.45312)" fill="#A4A4A4"/></svg>
             </a>
             <div id="blog-selection" v-if="!$route.meta.edit && showUserSelection">
                 <a class="user" v-for="blog in $store.state.auth.blogs" :key="blog.id" @click="showUserSelection = false; currentBlog = blog">
                     <img class="profile-pic" :src="blog.image" alt="">
-                    <span>{{blog.type == 'USER' ? blog.name : blog.name+' @ '+blog.name}}</span>
+                    <span>{{blog.type == 'USER' ? blog.name : $store.state.auth.user.name+' @ '+blog.name}}</span>
                 </a>
             </div>
             

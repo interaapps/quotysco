@@ -9,10 +9,7 @@ import de.interaapps.quotysco.backend.model.*;
 import de.interaapps.quotysco.backend.model.Post;
 import de.interaapps.quotysco.backend.requests.BlogEditRequest;
 import de.interaapps.quotysco.backend.requests.PostEditRequest;
-import de.interaapps.quotysco.backend.responses.ActionResponse;
-import de.interaapps.quotysco.backend.responses.BlogResponse;
-import de.interaapps.quotysco.backend.responses.LikedPostResponse;
-import de.interaapps.quotysco.backend.responses.PostResponse;
+import de.interaapps.quotysco.backend.responses.*;
 import org.javawebstack.abstractdata.AbstractElement;
 import org.javawebstack.framework.HttpController;
 import org.javawebstack.httpserver.Exchange;
@@ -83,9 +80,9 @@ public class PostController extends HttpController {
                 post.save();
 
                 Repo.get(PostCategory.class).where("postId", post.id).delete();
-                for (String category : request.categories) {
+                for (CategoryResponse category : request.categories) {
                     PostCategory postCategory = new PostCategory();
-                    postCategory.category = category;
+                    postCategory.category = category.name;
                     postCategory.postId   = post.id;
                     postCategory.save();
                 }
