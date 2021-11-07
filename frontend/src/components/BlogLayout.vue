@@ -28,13 +28,13 @@ export default {
     data(){
         return {
             following: this.blog.following,
-            followers: this.blog.follower_count,
+            follower_count: this.blog.follower_count,
         }
     },
     watch:{
         blog(to){
             this.following = to.following
-            this.followers = to.followers
+            this.followers = to.follower_count
         }
     },
     methods: {
