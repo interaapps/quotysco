@@ -49,11 +49,12 @@ public class BlogController extends HttpController {
         if (blog == null)
             throw new NotFoundException();
         BlogResponse blogResponse = new BlogResponse(blog);
+
         if (user != null) {
             blogResponse.following = user.isFollowing(blog);
             blogResponse.memberOf = blog.getUser(user) != null;
         }
-        blogResponse.followers = blog.getFollowerCount();
+        blogResponse.followerCount = blog.getFollowerCount();
         return blogResponse;
     }
 

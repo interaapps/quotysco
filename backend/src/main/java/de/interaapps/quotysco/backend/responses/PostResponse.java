@@ -7,9 +7,7 @@ import org.javawebstack.orm.Repo;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PostResponse extends LikedPostResponse {
@@ -22,9 +20,9 @@ public class PostResponse extends LikedPostResponse {
 
     public List<CategoryResponse> categories;
 
-    public int likesCount;
+    public int likeCount;
 
-    public int commentsCount;
+    public int commentCount;
 
     public Post.State state;
 
@@ -64,7 +62,7 @@ public class PostResponse extends LikedPostResponse {
         }
 
         if (loadLikes) {
-            likesCount = Repo.get(UserPostLike.class).where("postId", id).count();
+            likeCount = Repo.get(UserPostLike.class).where("postId", id).count();
 
             if (currentUser != null) {
                 liked = Repo.get(UserPostLike.class).where("postId", id).where("userId", currentUser.userId).count() > 0;
