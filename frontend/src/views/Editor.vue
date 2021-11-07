@@ -2,6 +2,7 @@
     <div>
         <div id="post" class="contents"> 
             <input ref="profilePicInput" style="display: none" @change="setImage" accept="image/*" type="file">
+            <input ref="addPicInput" style="display: none" @change="addImage" accept="image/*" type="file">
 
             <i id="change-photo" @click="$refs.profilePicInput.click()" class="uil uil-image"></i>
             
@@ -65,7 +66,7 @@
                 </div>
                 <div class="add-contents">
                     <i @click="addElement({type: 'TEXT', contents: 'Hello world!'})" style="font-size: 32px; padding: 1px" class="uil uil-text"></i>
-                    <i @click="$refs.profilePicInput.click()" class="uil uil-scenery"></i>
+                    <i @click="$refs.addPicInput.click()" class="uil uil-scenery"></i>
                     <i @click="addElement({ type: 'YOUTUBE', id: getYouTubeURL(prompt('Please enter a YouTube URL')) })" class="uil uil-presentation-play"></i>
                     <!--<i class="uil uil-arrow"></i>-->
 
