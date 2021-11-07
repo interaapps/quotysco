@@ -9,7 +9,8 @@
             <span class="date">{{getDate()}}</span>
             <router-link to="." class="user">
                 <img v-if="post.blog" class="profile-pic" :src="post.blog.image" alt="">
-                <span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
+                <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
+                <span>{{post.blog.display_name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
             </router-link>
             
             <div id="action-button">
