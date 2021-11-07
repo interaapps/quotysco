@@ -16,7 +16,7 @@
 
                 <div id="right">
                     
-                    <router-link to="/create-post" class="nav-icon-button"><i id="create-post-button" class="uil uil-pen"></i></router-link>
+                    <router-link v-if="$store.state.auth.loggedIn" to="/create-post" class="nav-icon-button"><i id="create-post-button" class="uil uil-pen"></i></router-link>
                     
                     <!--<router-link to="/search" class="nav-icon-button"><i class="uil uil-search"></i></router-link>-->
                     
