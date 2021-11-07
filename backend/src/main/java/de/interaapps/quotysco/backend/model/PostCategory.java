@@ -12,13 +12,10 @@ public class PostCategory extends Model {
     public int id;
 
     @Column
-    public String name;
+    public int postId;
 
-    @Column
-    public String image;
-
-    @Column
-    public String contents;
+    @Column(size = 30)
+    public String category;
 
     @Column
     public Timestamp createdAt;

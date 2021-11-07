@@ -1,28 +1,56 @@
 package de.interaapps.quotysco.backend.model;
 
 import org.javawebstack.orm.Model;
+import org.javawebstack.orm.Repo;
 import org.javawebstack.orm.annotation.Column;
 import org.javawebstack.orm.annotation.Dates;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 @Dates
-public class Blog extends Model {
+public class Post extends Model {
     @Column
     public int id;
 
-    @Column
-    public String name;
+    @Column(size = 150)
+    public String url;
 
     @Column
-    public String description;
+    public String title;
 
     @Column
     public String image;
+
+    @Column
+    public String contents;
+
+    @Column(size = 25)
+    public String userId;
+
+    @Column
+    public int blogId;
+
+    @Column
+    public State state;
 
     @Column
     public Timestamp createdAt;
 
     @Column
     public Timestamp updatedAt;
+
+    public enum State {
+        DRAFT,
+        UNLISTED,
+        PUBLISHED
+    }
+
+    public void delete(){
+        Repo.get(PostCategory.class).where("postId", id).delete();
+        Repo.get(UserPostLike.class).where("postId", id).delete();
+        Repo.get(GlobalPostInterestInteraction.class).where("postId", id).delete();
+        super.delete();
+    }
 }

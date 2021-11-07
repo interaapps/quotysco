@@ -1,46 +1,96 @@
 package de.interaapps.quotysco.backend.controller;
 
+import com.google.gson.Gson;
+import de.interaapps.quotysco.backend.QuotyscoBackend;
+import de.interaapps.quotysco.backend.exceptions.InvalidRequestException;
 import de.interaapps.quotysco.backend.exceptions.NotFoundException;
-import de.interaapps.quotysco.backend.model.Blog;
-import de.interaapps.quotysco.backend.model.BlogUser;
-import de.interaapps.quotysco.backend.model.Session;
-import de.interaapps.quotysco.backend.model.User;
+import de.interaapps.quotysco.backend.exceptions.PermissionsDeniedException;
+import de.interaapps.quotysco.backend.model.*;
+import de.interaapps.quotysco.backend.model.Post;
 import de.interaapps.quotysco.backend.requests.BlogEditRequest;
+import de.interaapps.quotysco.backend.requests.PostEditRequest;
 import de.interaapps.quotysco.backend.responses.ActionResponse;
 import de.interaapps.quotysco.backend.responses.BlogResponse;
+import de.interaapps.quotysco.backend.responses.LikedPostResponse;
+import de.interaapps.quotysco.backend.responses.PostResponse;
+import org.javawebstack.abstractdata.AbstractElement;
 import org.javawebstack.framework.HttpController;
+import org.javawebstack.httpserver.Exchange;
 import org.javawebstack.httpserver.router.annotation.*;
 import org.javawebstack.orm.Repo;
+import org.javawebstack.validator.ValidationContext;
+import org.javawebstack.validator.ValidationException;
+import org.javawebstack.validator.Validator;
+import org.javawebstack.validator.rule.AlphaDashRule;
 
-@PathPrefix("/api/v1/blog")
-public class BlogController extends HttpController {
+@PathPrefix("/api/v1/posts")
+public class PostController extends HttpController {
 
-    @Get("/{name}")
-    public BlogResponse getBlog(@Path("name") String name){
-        Blog blog = Repo.get(Blog.class).where("name", name).first();
+    @Get("/{blog}/{name}")
+    public PostResponse getBlog(Exchange exchange, @Path("blog") String blogName, @Path("name") String name, @Attrib("user") User user){
+        Blog blog = Repo.get(Blog.class).where("name", blogName).first();
         if (blog == null)
             throw new NotFoundException();
-        return new BlogResponse(blog);
+        Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
+        if (post == null)
+            throw new NotFoundException();
+
+        PostResponse postResponse = new PostResponse(post, blog, false, null, true, true, true, exchange.attrib("session"));
+        if (user != null) {
+            postResponse.blog.memberOf = blog.getUser(user) != null;
+
+            InterestInteraction.addInterestFromPost(post, 5, user);
+        }
+        GlobalPostInterestInteraction.addInterestFromPost(post, user == null ? 5 : 10);
+        return postResponse;
     }
 
-    @Put("/{name}")
+    @Put("/{blog}/{name}")
     @With("auth")
-    public ActionResponse updateBlog(@Body BlogEditRequest request, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+    public ActionResponse updatePost(@Body PostEditRequest request, @Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
         ActionResponse response = new ActionResponse();
-        Blog blog = Repo.get(Blog.class).where("name", name).first();
+        Blog blog = Repo.get(Blog.class).where("name", blogName).first();
+
+        String result = new AlphaDashRule().validate(null, null, AbstractElement.fromAbstractObject(name));
+
+        if (result != null)
+            throw new InvalidRequestException(result);
 
         if (blog != null) {
             BlogUser blogUser = blog.getUser(user);
-            if (blogUser != null && (blogUser.role == BlogUser.Role.ADMIN || blogUser.role == BlogUser.Role.OWNER)) {
-                boolean blogWritePermission = session.hasPermission("blog:write");
+            if (blogUser != null) {
+                session.checkPermission("post:write");
+                Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
+                if (post == null) {
+                    post = new Post();
+                    post.blogId = blog.id;
+                    post.userId = user.id;
+                    post.url = name;
+                }
 
-                if (request.description != null && (blogWritePermission || session.checkPermission("blog.description:write")))
-                    blog.description = request.description;
+                post.title = request.title;
+                post.image = request.image;
+                if (post.state == null && request.state == null)
+                    post.state = Post.State.PUBLISHED;
+                else if (request.state != null)
+                    post.state = request.state;
+                post.contents = new Gson().toJson(request.contents);
 
-                if (request.layoutType != null && (blogWritePermission || session.checkPermission("blog.layouttype:write")))
-                    blog.layoutType = Blog.LayoutType.valueOf(request.layoutType);
 
-                blog.save();
+                if (!post.userId.equals(session.userId))
+                    throw new PermissionsDeniedException();
+
+                post.save();
+
+                Repo.get(PostCategory.class).where("postId", post.id).delete();
+                for (String category : request.categories) {
+                    PostCategory postCategory = new PostCategory();
+                    postCategory.category = category;
+                    postCategory.postId   = post.id;
+                    postCategory.save();
+                }
+
+                response.success = true;
             }
         }
 
@@ -48,4 +98,81 @@ public class BlogController extends HttpController {
         return response;
     }
 
+    @Delete("/{blog}/{name}")
+    @With("auth")
+    public ActionResponse deletePost(@Body PostEditRequest request, @Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+        ActionResponse response = new ActionResponse();
+        Blog blog = Repo.get(Blog.class).where("name", blogName).first();
+
+        String result = new AlphaDashRule().validate(null, null, AbstractElement.fromAbstractObject(name));
+
+        if (result != null)
+            throw new InvalidRequestException(result);
+
+        if (blog != null) {
+            if (blog.getUser(user) != null) {
+                session.checkPermission("post:write");
+                Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
+                if (post == null)
+                    throw new NotFoundException();
+                post.delete();
+                response.success = true;
+            }
+        }
+
+        return response;
+    }
+
+
+    @org.javawebstack.httpserver.router.annotation.Post("/{blog}/{name}/like")
+    @With("auth")
+    public ActionResponse likePost(@Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+        ActionResponse response = new ActionResponse();
+        Blog blog = Repo.get(Blog.class).where("name", blogName).first();
+
+        if (blog != null) {
+            session.checkPermission("post:like");
+            Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
+            if (post != null) {
+                UserPostLike userPostLike = Repo.get(UserPostLike.class).where("postId", post.id).where("userId", user.id).first();
+                if (userPostLike == null) {
+                    userPostLike = new UserPostLike();
+                    userPostLike.postId = post.id;
+                    userPostLike.userId = user.id;
+                    userPostLike.save();
+
+                    InterestInteraction.addInterestFromPost(post, 50, user);
+                    GlobalPostInterestInteraction.addInterestFromPost(post, 100);
+                } else {
+                    userPostLike.delete();
+                    InterestInteraction.addInterestFromPost(post, -50, user);
+                    GlobalPostInterestInteraction.addInterestFromPost(post, -100);
+                }
+                response.success = true;
+            } else
+                throw new NotFoundException();
+        }
+
+
+        return response;
+    }
+
+    @Get("/{blog}/{name}/liked")
+    @With("auth")
+    public LikedPostResponse likedPost(@Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+        LikedPostResponse response = new LikedPostResponse();
+        Blog blog = Repo.get(Blog.class).where("name", blogName).first();
+
+        if (blog != null) {
+            session.checkPermission("post:like");
+            Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
+            if (post != null) {
+                response.liked = user.likedPost(post);
+                response.success = true;
+            } else
+                throw new NotFoundException();
+        }
+
+        return response;
+    }
 }

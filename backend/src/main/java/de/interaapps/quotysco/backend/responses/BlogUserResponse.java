@@ -1,37 +1,19 @@
 package de.interaapps.quotysco.backend.responses;
 
 import de.interaapps.quotysco.backend.model.Blog;
-import de.interaapps.quotysco.backend.model.Post;
+import de.interaapps.quotysco.backend.model.BlogUser;
+import org.javawebstack.orm.annotation.Column;
 
 import java.sql.Timestamp;
 
-public class BlogResponse extends FollowingResponse {
-    public int id;
-    public String name;
-    public String displayName;
-    public String description;
-    public String image;
-    public String website;
-    public boolean verified;
-    public Blog.Type type;
-    public Timestamp createdAt;
-    public Timestamp updatedAt;
-    public Blog.LayoutType layoutType = Blog.LayoutType.LEFT_NAVIGATION;
-    public Boolean memberOf;
+public class BlogUserResponse extends ActionResponse {
+    public BlogUser.Role role;
+    public UserResponse user;
 
-    public BlogResponse(Blog blog){
-        super(null);
-        id = blog.id;
-        name = blog.name;
-        displayName = blog.displayName;
-        description = blog.description;
-        image = blog.image;
-        type = blog.type;
-        verified = blog.verified;
-        website = blog.website;
-        createdAt = blog.createdAt;
-        updatedAt = blog.updatedAt;
-        success = true;
+    public BlogUserResponse(BlogUser blogUser){
+        role = blogUser.role;
+        user = UserResponse.fromUserId(blogUser.userId);
+        user.mail = null;
     }
 
 }

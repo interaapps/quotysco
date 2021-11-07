@@ -1,4 +1,4 @@
-package de.interaapps.accounts.backend.exceptions;
+package de.interaapps.quotysco.backend.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(){

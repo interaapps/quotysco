@@ -6,23 +6,10 @@ import org.javawebstack.orm.annotation.Dates;
 
 import java.sql.Timestamp;
 
-@Dates
-public class Post extends Model {
-    @Column
-    public int id;
-
-    @Column
+public class Category extends Model {
+    @Column(id = true, size = 30)
     public String name;
 
     @Column
-    public String image;
-
-    @Column
-    public String contents;
-
-    @Column
-    public Timestamp createdAt;
-
-    @Column
-    public Timestamp updatedAt;
+    public String displayName;
 }

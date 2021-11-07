@@ -8,7 +8,7 @@ import org.javawebstack.orm.annotation.Dates;
 import java.sql.Timestamp;
 
 @Dates
-public class InterestInteraction extends Model {
+public class GlobalPostInterestInteraction extends Model {
     @Column
     public int id;
 
@@ -16,7 +16,7 @@ public class InterestInteraction extends Model {
     public String userId;
 
     @Column
-    public String category;
+    public int postId;
 
     @Column
     public int score = 0;
@@ -27,18 +27,15 @@ public class InterestInteraction extends Model {
     @Column
     public Timestamp updatedAt;
 
-    public static void addInterestFromPost(Post post, int score, User user){
+    public static void addInterestFromPost(Post post, int score){
         new Thread(()->{
-            Repo.get(PostCategory.class).where("postId", post.id).get().forEach(postCategory -> {
-                InterestInteraction interestInteraction = Repo.get(InterestInteraction.class).where("userId", user.id).where("category", postCategory.category).first();
-                if (interestInteraction == null) {
-                    interestInteraction = new InterestInteraction();
-                    interestInteraction.category = postCategory.category;
-                    interestInteraction.userId = user.id;
-                }
-                interestInteraction.score += score;
-                interestInteraction.save();
-            });
+            GlobalPostInterestInteraction interestInteraction = Repo.get(GlobalPostInterestInteraction.class).where("postId", post.id).first();
+            if (interestInteraction == null) {
+                interestInteraction = new GlobalPostInterestInteraction();
+                interestInteraction.postId = post.id;
+            }
+            interestInteraction.score += score;
+            interestInteraction.save();
         }).start();
     }
 

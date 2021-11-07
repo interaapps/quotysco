@@ -12,9 +12,9 @@ public class UserPostLike extends Model {
     public int id;
 
     @Column
-    public int blogId;
+    public int postId;
 
-    @Column
+    @Column(size = 25)
     public String userId;
 
     @Column

@@ -1,6 +1,8 @@
 package de.interaapps.quotysco.backend.requests;
 
+import org.javawebstack.validator.Rule;
+
 public class CreateBlogRequest {
-    public String description;
-    public String layoutType;
+    @Rule("alpha_dash")
+    public String name;
 }

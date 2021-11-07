@@ -7,28 +7,19 @@ import org.javawebstack.orm.annotation.Dates;
 import java.sql.Timestamp;
 
 @Dates
-public class BlogUser extends Model {
+public class UserBlogFollow extends Model {
     @Column
     public int id;
 
     @Column
     public int blogId;
 
-    @Column
+    @Column(size = 25)
     public String userId;
-
-    @Column
-    public Role role;
 
     @Column
     public Timestamp createdAt;
 
     @Column
     public Timestamp updatedAt;
-
-    public enum Role {
-        OWNER,
-        ADMIN,
-        WRITER
-    }
 }

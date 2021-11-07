@@ -1,4 +1,4 @@
-package de.interaapps.accounts.backend.exceptions.auth;
+package de.interaapps.quotysco.backend.exceptions.auth;
 
 public class AuthenticationInvalidException extends RuntimeException {
     public AuthenticationInvalidException(){
