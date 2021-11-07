@@ -227,7 +227,7 @@ export default {
                     vertical-align: middle;
                     width:  50px;
                     height: 50px;
-                    border: rgb(214, 39, 39) 3px solid;
+                    border: #ddd 3px solid;
                     border-radius: 50%;
                     object-fit: cover;
                     background-color: #FFF;
