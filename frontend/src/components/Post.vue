@@ -4,7 +4,8 @@
             <span class="date">{{getDate()}}</span>
             <div class="user">
                 <img class="profile-pic" :src="post.blog.image" alt="">
-                <span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
+                <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
+                <span>{{post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
             </div>
             <img v-if="post.image" class="post-banner" :src="post.image" alt="">
             <h1>{{post.title}}<i class="uil uil-lock" style="margin-left:10px" v-if="post.state != 'PUBLISHED'" /></h1>
