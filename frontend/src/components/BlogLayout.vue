@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="blog-header" class="layout-left">
-            <i @click="$router.push(`/${blog.name}/@settings`)" id="settings-button" class="uil uil-cog"></i>
+            <i v-if="blog.member_of" @click="$router.push(`/${blog.name}/@settings`)" id="settings-button" class="uil uil-cog"></i>
             <img @click="$router.push(`/${blog.name}`)" :src="blog.image">
             <h1>{{blog.display_name}} <i class="uil uil-check-circle verified-badge" v-if="blog.verified" /></h1>
             <h2 v-if="blog.display_name != blog.name && '@'+blog.display_name != blog.name">{{blog.name}}</h2>
