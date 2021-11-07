@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+@import './highlight.scss';
+
+
+@import url(https://unicons.iconscout.com/release/v4.0.0/css/line.css);
+.uil {
+    display: inline-block;
+    line-height: 0px;
+}
+
+* {
+    padding: 0px;
+    margin:  0px;
+    box-sizing: border-box;
+    font-family: 'DM Sans', monospace;
+}
+
+img {
+    object-fit: cover;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.contents {
+  max-width: 1000px;
+  padding: 10px;
+  margin: auto;
+}
+
+#post {
+  margin-top: 120px;
+
+  h1, #title, .h1-fake {
+
+      width: 100%;
+        
+      color: #545454;
+      font-weight: 500;
+      font-size: 30px;
+      margin-bottom: 30px;
+      border: none;
+      outline: none;
+  }
+
+  #post-contents {
+      display: inline-block;
+      margin-left: 20px;
+      width: calc(100% - 70px);
+      font-size: 22px;
+      color: #545454;
+      margin-top: -7px;
+      vertical-align: top;
+      div {
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+
+
+      a:link{
+          color: #3EE1CE;
+      }
+
+      img {
+          max-width: 100%;
+          border-radius: 10px;
+          user-select: none;
+      }
+
+      iframe {
+          max-width: 100%;
+          border-radius: 7px;
+      }
+  }
+
+  #post-banner {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 40px;
+  }
+
+  #action-button {
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+    width: 45px;
+    color: #767676;
+    .action-button {
+        cursor: pointer;
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+        transition: 0.1s;
+        i {
+            margin: auto;
+            font-size: 31px;
+            padding: 5px;
+        }
+        span {
+            display: block;
+            margin: auto;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 0px;
+        }
+        margin-bottom: 10px;
+        &:hover {
+            i {
+                background: #00000006;
+                border-radius: 110px;
+            }
+        }
+
+        &.liked {
+            color: #FF4343;
+            &:hover {
+                i {
+                    background: #FF434311;
+                }
+            }
+        }
+
+        &.comments:hover {
+            color: #3EE1CE;
+            i {
+                background: #3EE1CE11;
+            }
+        }
+    
+    }
+  }
+
+  pre {
+      padding: 16px;
+      background: #262b39;
+      color: #FFF;
+      border-radius: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      &, * {
+        font-family: 'DM Mono';
+      }
+  }
+
+  blockquote {
+    border-left: 3px solid #00000022;
+    padding: 3px;
+    padding-left: 10px;
+    margin: 20px 0px;
+  }
+  #categories {
+    padding-left: 63px;
+  }
+  .category {
+    padding: 3px 12px;
+    background: #131313;
+    color: #FFF;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: default;
+    text-decoration: none;
+    margin-bottom: 6px;
+
+    margin-right: 10px;
+
+    span {
+        vertical-align: middle;
+    }
+
+    svg {
+        margin-left: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #FFF;
+
+        width:  16px;
+        height: 16px;
+    }
+
+    .remove {
+        display: none;
+        cursor: pointer;
+    }
+
+    &:hover {
+        .remove {
+            display: inline-block;
+        }
+    }
+    &:link {
+        cursor: pointer;
+    }
+  }
+  
+  .user {
+      margin-bottom: 10px;
+      display: block;
+      text-decoration: none;
+      color: #434343;
+      .profile-pic {
+          border: #dddddd solid 3px;
+          border-radius: 50%;
+          width:  42px;
+          height: 42px;
+          margin: 0px 2px;
+          vertical-align: middle;
+      }
+
+      span {
+          vertical-align: middle;
+          font-size: 23px;
+          margin-left: 16px;
+          font-weight: 500;
+      }
+  }
+
+  .date {
+      font-weight: 500;
+      float: right;
+      font-size: 20px;
+      color: #a5a5a5;
+      margin-right: 20px;
+      margin-top: 9px;
+  }
+}
+
+.big-action-button {
+    border: #3EE1CE 2px solid;
+    color: #3EE1CE;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    &:hover, &.selected, &.fill {
+        background: #3EE1CE;
+        color: #FFF;
+    }
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    background: #3EE1CE;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 7px;
+    text-decoration: none;
+    &.danger {
+        background: #ff3f3f;
+    }
+}
+
+
+.markdown-contents {
+    h1 {
+        margin: 25px 0px 10px 0px; 
+        font-size: 33px !important;
+    }
+    h2 {
+        margin: 20px 0px 7px 0px; 
+        font-size: 28px !important;
+    }
+    ul {
+        padding-left: 24px;
+    }
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(141, 141, 141);
+    margin-bottom: 8px;
+}
+
+.input {
+    padding: 4px 9px;
+    display: block;
+    width: 100%;
+    font-size: 19px;
+    border-radius: 9px;
+    font-weight: 400;
+    color: #434343;
+    border: solid 2px rgb(219, 219, 219);
+    outline: none;
+    &:focus {
+        border-color: #3EE1CE;
+    }
+}
+
+.verified-badge {
+    display: inline;
+    color: #3EE1CE;
+
+    &:hover::after {
+        content: "Verified";
+        font-style: normal;
+        font-size: 15px;
+        background: #3d3d3d;
+        border-radius: 6px;
+        padding: 2px 4px;
+        color: #FFF;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
+}
+
+.post-list {
+    &>div {
+        width: calc(50% - 10px);
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: top;
+    }
+}
+@media screen and (max-width: 720px) {
+    .post-list {
+        &>div {
+            display: block;
+            width: 100%;
+        }
+    }
+    #post {
+        #action-button {
+            display: block;
+            width: 100%;
+            color: #767676;
+            margin-top: 20px;
+            .action-button {
+                display: inline-block;
+                margin-bottom: 0px;
+                i {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-left: 3px;
+                    font-size: 18px;
+                    margin-right: 15px;
+                }
+            }
+        }
+        #post-contents {
+            display: block;
+            margin-left: 0px;
+            padding: 10px;
+            width: 100%;
+        }
+        #categories {
+          padding-left: 10px;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<h1>
+    LOGGING IN...
+</h1>
+<script>
+if (window.opener && window.opener !== window) {
+} else {
+    const urlParams = new URLSearchParams(window.location.search);
+    fetch(`/authorization/oauth2/interaapps/callback?code=${urlParams.get('code')}&popup=true`)
+        .then(res=>res.json())
+        .then(res=>{
+            localStorage["session"] = res.session
+            window.location = "/"
+        })
+}
+</script>
