@@ -41,11 +41,7 @@ export async function login(){
             .then(async res => {
                 localStorage["session"] = res.session
                 apiClient.setApiKey(res.session)
-                await apiClient.getUser()
-                    .then(res => {
-                        store.state.auth.loggedIn = true
-                        store.state.auth.user = res
-                    })
+                await apiClient.loadUser()
             })
     })
 }

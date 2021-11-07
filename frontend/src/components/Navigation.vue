@@ -88,6 +88,7 @@ export default {
                     this.$router.push("/"+this.newBlog.name+"/@settings")
                     this.newBlog.name = ""
                     this.$refs.createBlogModal.close()
+                    this.api.loadUser()
                 }).catch(()=>{
                     this.blogCreationError = "Name already given"
                 })

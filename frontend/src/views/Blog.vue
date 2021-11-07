@@ -29,7 +29,7 @@ export default {
         this.load()
     },
     watch:{
-        '$route.params.name'(){
+        '$route'(){
             this.load()
         }
     },

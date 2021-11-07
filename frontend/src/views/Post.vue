@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div id="categories">
-                <router-link v-for="category in post.categories" :key="category" class="category" :to="'/category/'+category.name">{{category.display_name}}</router-link>
+                <router-link v-for="(category, i) in post.categories" :key="i" class="category" :to="'/category/'+category.name">{{category.display_name}}</router-link>
             </div>
             <div style="float: right">
                 <a @click="deletePost" v-if="post.author_is_me" class="button danger">Delete Post</a>
@@ -112,9 +112,9 @@ export default {
             await this.api.likePost(this.post.blog.name, this.post.url)
             this.post.liked = await this.api.likedPost(this.post.blog.name, this.post.url)
             if (this.post.liked)
-                this.post.likes++
+                this.post.likes_count++
             else
-                this.post.likes--
+                this.post.likes_count--
         } else {
             login()
                 .then(()=>{
