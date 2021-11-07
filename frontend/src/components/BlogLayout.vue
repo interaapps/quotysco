@@ -19,6 +19,7 @@
     </div>
 </template>
 <script>
+import { login } from '../main'
 export default {
     name: "blog-layout",
     props: {
@@ -38,17 +39,24 @@ export default {
     },
     methods: {
         follow(){
-            this.api.follow(this.blog.name)
-                .then(()=>{
-                    this.api.isFollowing(this.blog.name)
-                        .then(res=>{
-                            this.following = res
-                            if (this.following)
-                                this.followers++
-                            else
-                                this.followers--
-                        })
-                })
+            if (this.$store.state.auth.loggedIn){
+                this.api.follow(this.blog.name)
+                    .then(()=>{
+                        this.api.isFollowing(this.blog.name)
+                            .then(res=>{
+                                this.following = res
+                                if (this.following)
+                                    this.followers++
+                                else
+                                    this.followers--
+                            })
+                    })
+            } else {
+                login()
+                    .then(()=>{
+                        this.follow()
+                    })
+            }
         }
     }
 }

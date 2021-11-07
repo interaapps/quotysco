@@ -1,0 +1,25 @@
+{
+    "name": "Quotysco",
+    "short_name": "quotysco",
+    "theme_color": "#3EE1CE",
+    "icons": [
+      {
+        "src": "/assets/icons/icon196x.png",
+        "type": "image/png",
+        "sizes": "196x196"
+      },
+      {
+        "src": "/assets/icons/icon512x.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      },
+      {
+        "src": "/assets/icons/icon152x.png",
+        "type": "image/png",
+        "sizes": "152x152"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF"
+  }
