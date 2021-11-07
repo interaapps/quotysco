@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quotysco-prod
+  labels:
+    app: quotysco-prod
+spec:
+  selector:
+    matchLabels:
+      app: quotysco-prod
+  template:
+    metadata:
+      labels:
+        app: quotysco-prod
+    spec:
+      containers:
+        - name: quotysco-prod
+          image: '${CI_REGISTRY}/${CI_PROJECT_PATH}:${BRANCH_SLUG_SHORT}-${CI_COMMIT_SHORT_SHA}'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: quotysco-env
+      imagePullSecrets:
+        - name: 'docker-registry'
+  revisionHistoryLimit: 1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: quotysco-prod
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: quotysco-prod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: quotysco-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+      - quotysco.ga
+      - www.quotysco.ga
+    secretName: quotysco-prod-ssl
+  rules:
+  - host: quotysco.ga
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: quotysco-prod
+            port:
+              number: 80
+  - host: www.quotysco.ga
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: quotysco-prod
+            port:
+              number: 80

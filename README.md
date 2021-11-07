@@ -1,0 +1,1 @@
+<p align="center"><img src="/.github/images/logo.svg" width="200"></p>
