@@ -148,6 +148,7 @@ export default {
             this.api.getBlogPost(this.$route.params.blog, this.$route.params.post)
                 .then(res => {
                     this.post = res
+                    this.currentBlog = res.blog
                     this.$store.state.pageTitle = `${this.post.blog.display_name} - ${this.post.title} (Edit)`
                     setTimeout(()=>{
                         this.resizeAll()
