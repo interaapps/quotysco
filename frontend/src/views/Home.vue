@@ -125,11 +125,11 @@ h1 {
     background-position: center;
     h1 {
         margin-top: 0px;
-        padding-top: 180px;
+        padding-top: 170px;
         text-align: center;
-        font-size: 60px;
+        font-size: 55px;
         font-weight: 400;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     #categories {
@@ -141,9 +141,9 @@ h1 {
             color: #FFF;
             background: #121212;
             margin: 5px;
-            padding: 3px 18px;
-            border-radius: 6px;
-            font-size: 27px;
+            padding: 4px 15px;
+            border-radius: 9px;
+            font-size: 23px;
         }
     }
 }

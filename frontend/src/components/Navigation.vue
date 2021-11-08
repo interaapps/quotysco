@@ -285,9 +285,9 @@ export default {
         }
     }
     .nav-icon-button {
-        margin-right: 16px;
+        margin-right: 13px;
         i {
-            font-size: 24px;
+            font-size: 25px;
             vertical-align: middle;
             padding: 6px;
             color: #656565;

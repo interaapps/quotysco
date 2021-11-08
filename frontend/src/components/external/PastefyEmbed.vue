@@ -30,7 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .paste {
-    padding: 10px;
+    padding: 15px;
     background: #262b39;
     color: #FFF;
     border-radius: 10px;
@@ -40,11 +40,14 @@ export default {
         font-size: 30px !important;
         color: #FFF !important;
         margin-bottom: 0px !important;
+        margin-top: -5px;
     }
 
     pre {
         overflow: auto;
         margin: 0px !important;
+        margin-top: 20px !important;
+        padding: 0px !important;
         &::-webkit-scrollbar {
            display: none;
         }

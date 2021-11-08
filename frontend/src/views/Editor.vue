@@ -322,7 +322,7 @@ export default {
         width: 100%;
         background: transparent;
         border: none;
-        font-size: 26px;
+        font-size: 22px;
         outline: none;
     }
 
@@ -364,7 +364,7 @@ export default {
             width: fit-content;
             border-radius: 13px;
             position: absolute;
-            bottom: -40px;
+            bottom: -50px;
             right: 0px;
 
             a {
@@ -397,6 +397,7 @@ export default {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 6px 3px;
+                border: none;
                 &:hover {
                     background: #00000011;
                     border-radius: 4px;
@@ -445,6 +446,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         margin: 7px 5px;
+        border: none !important;
         &:hover {
             background: #00000009;
             border-radius: 10px;
