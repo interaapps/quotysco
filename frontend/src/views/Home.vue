@@ -123,6 +123,7 @@ h1 {
     background: url(../assets/img/homebg.svg);
     background-size: cover;
     background-position: center;
+    overflow: auto;
     h1 {
         margin-top: 0px;
         padding-top: 170px;
