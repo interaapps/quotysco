@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         getDate(){
-            const date = new Date(this.post.created_at)
+            const date = new Date(this.post.created_at.replace(" ", "T"))
             return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()
         }
     }
