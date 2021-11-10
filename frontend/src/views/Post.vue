@@ -126,7 +126,7 @@ export default {
 
     getDate(){
         
-        const date = new Date(this.post.created_at)
+        const date = new Date(this.post.created_at.replace(" ", "T"))
         return (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()])+" "+date.getDate()+(date.getFullYear() == new Date().getFullYear() ? '' : " "+date.getFullYear())
         
         //return this.post.created_at

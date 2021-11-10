@@ -29,14 +29,6 @@
         </div>
       </div>
 
-      <div class="posts" v-if="global_latest_posts.length > 0">
-        <router-link to="/trends" class="button" style="float: right">More</router-link>
-        <h1>Newest on Quotysco</h1>
-        <div class="post-list">
-          <post v-for="post of global_latest_posts" :key="post.id" :post='post' />
-        </div>
-      </div>
-
       <div  v-if="categories.length > 0">
         <div v-for="(category, i) of categories" :key="i">
           <router-link :to="/category/+category.name" class="button" style="float: right">More</router-link>
@@ -44,6 +36,14 @@
           <div class="post-list"  v-if="category.data.length > 0">  
             <post v-for="post of category.data" :key="post.id" :post='post' />
           </div>
+        </div>
+      </div>
+
+      <div class="posts" v-if="global_latest_posts.length > 0">
+        <router-link to="/trends" class="button" style="float: right">More</router-link>
+        <h1>Newest on Quotysco</h1>
+        <div class="post-list">
+          <post v-for="post of global_latest_posts" :key="post.id" :post='post' />
         </div>
       </div>
     </div>
