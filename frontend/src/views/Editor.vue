@@ -162,8 +162,10 @@ export default {
     },
     methods: {
         resizeMeWithContents(element){
+            element.style.marginBottom = element.style.height
             element.style.height = "5px"
             element.style.height = (element.scrollHeight+5)+"px";
+            element.style.marginBottom = ""
         },
         moveUp(index){
             [this.post.contents.contents[index], this.post.contents.contents[index-1]] = [this.post.contents.contents[index-1], this.post.contents.contents[index]]

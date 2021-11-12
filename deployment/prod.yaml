@@ -72,3 +72,23 @@ spec:
             name: quotysco-prod
             port:
               number: 80
+  - host: quotysco.eu
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: quotysco-prod
+            port:
+              number: 80
+  - host: www.quotysco.eu
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: quotysco-prod
+            port:
+              number: 80

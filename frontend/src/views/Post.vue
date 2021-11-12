@@ -97,7 +97,7 @@ export default {
                 this.post = res
                 for (const i in res.contents.contents) {
                     if (res.contents.contents[i].type == 'TEXT'){
-                        res.contents.contents[i].contents = markdown.render(res.contents.contents[i].contents)
+                        res.contents.contents[i].contents = this.renderMarkdown(res.contents.contents[i].contents)
                     }
                 }
                 this.$store.state.pageTitle = `${this.post.blog.display_name} - ${this.post.title}`
@@ -122,6 +122,13 @@ export default {
                     this.like()
                 })
         }
+    },
+    renderMarkdown(md){
+        /* const dangerousTags = ['script', 'style'].join("|")
+        md = md.replace(new RegExp(`^<(${dangerousTags})( (.*))?>`, 'gism'), (_, tag)=>`&lt;${tag}&gt;`)
+               .replace(new RegExp(`^</(${dangerousTags})( (.*))?>$`, 'gism'), (_, tag)=>`&lt;/${tag}&gt;`)*/
+        let html = markdown.render(md)
+        return html
     },
 
     getDate(){

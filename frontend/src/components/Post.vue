@@ -93,7 +93,6 @@ export default {
             cursor: pointer;
             display: inline-block;
             margin-right: 20px;
-            padding: 4px 2px;
             i {
                 display: inline-block;
                 margin: auto;
