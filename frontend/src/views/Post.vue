@@ -32,7 +32,7 @@
                     <h4 v-if="part.type=='H4'">{{part.contents}}</h4>
                     <div class="markdown-contents" v-else-if="part.type=='TEXT'" v-html="part.contents" />
                     <img v-else-if="part.type=='IMAGE'" :src="part.url" :width="part.width ? part.width : false" />
-                    <iframe v-else-if="part.type=='YOUTUBE'" width="560" height="315" :src="'https://www.youtube.com/embed/'+part.id" frameborder="0"  allowfullscreen></iframe>
+                    <iframe v-else-if="part.type=='YOUTUBE'" width="560" height="315" :src="'https://www.youtube-nocookie.com/embed/'+part.id" frameborder="0"  allowfullscreen></iframe>
                     <pastefy-embed v-else-if="part.type=='PASTEFY'" :pasteid="part.id" />
                 </div>
             </div>

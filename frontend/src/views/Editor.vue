@@ -43,7 +43,7 @@
                     <input    :ref='"el"+index' type="text" class="h4-fake" v-if="part.type=='H4'" placeholder="title"  v-model="part.contents">
                     <textarea :ref='"el"+index' @input="resizeMeWithContents($event.target)" v-else-if="part.type=='TEXT'" style="height: 33px;" placeholder="Text in here..." v-model="part.contents"></textarea>
                     <img v-else-if="part.type=='IMAGE'" :src="part.url" :width="part.width ? part.width : ''" />
-                    <iframe v-else-if="part.type=='YOUTUBE'" width="560" height="315" :src="'https://www.youtube.com/embed/'+part.id" frameborder="0"  allowfullscreen></iframe>
+                    <iframe v-else-if="part.type=='YOUTUBE'" width="560" height="315" :src="'https://www.youtube-nocookie.com/embed/'+part.id" frameborder="0"  allowfullscreen></iframe>
                     <pastefy-embed v-else-if="part.type=='PASTEFY'" :pasteid="part.id" />
 
                     <div class="element-options">
