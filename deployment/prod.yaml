@@ -50,6 +50,8 @@ spec:
   - hosts:
       - quotysco.ga
       - www.quotysco.ga
+      - quotysco.eu
+      - www.quotysco.eu
     secretName: quotysco-prod-ssl
   rules:
   - host: quotysco.ga
