@@ -41,6 +41,15 @@ public class Post extends Model {
     @Column
     public Timestamp updatedAt;
 
+    public static Post getByBlogAndUrl(Blog blog, String url){
+        return Repo.get(Post.class).where("blogId", blog.id).where("url", url).where("state", State.PUBLISHED).first();
+    }
+
+    public static Post getByBlogAndUrl(String blogName, String url){
+        Blog blog = Blog.getByName(blogName);
+        return blog != null ? getByBlogAndUrl(blog, url) : null;
+    }
+
     public enum State {
         DRAFT,
         UNLISTED,

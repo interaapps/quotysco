@@ -114,7 +114,7 @@ public class BlogController extends HttpController {
         query.and(q1->{
             q1.where("state", "PUBLISHED");
             if (user != null && blog.getUser(user) != null)
-                q1.orWhere("state", "UNLISTED");
+                q1.orWhere("state", "UNLISTED").orWhere("state", "DRAFT");
             return q1;
         });
         query.order("createdAt", true);

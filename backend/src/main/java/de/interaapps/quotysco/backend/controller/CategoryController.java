@@ -45,6 +45,9 @@ public class CategoryController extends HttpController {
         Query<Post> query = Repo.get(Post.class)
                 .whereExists(PostCategory.class, categoryQuery -> categoryQuery.where("category", category).where(Post.class, "id", "=", PostCategory.class, "postId"))
                 .where("state", "PUBLISHED");
+
+        pagination.total = query.count();
+
         pagination.data = query
                 .limit(pagination.page - 1 < 0 ? 0 : (pagination.page - 1) * pagination.pageSize, pagination.pageSize < 0 ? 5 : pagination.pageSize)
                 .order("createdAt", true)
@@ -52,7 +55,6 @@ public class CategoryController extends HttpController {
                 .stream()
                 .map(post -> new PostResponse(post, Repo.get(Blog.class).get(post.blogId), false, null, true, false, true, exchange.attrib("session")))
                 .collect(Collectors.toList());
-        pagination.total = query.count();
 
         return pagination;
     }

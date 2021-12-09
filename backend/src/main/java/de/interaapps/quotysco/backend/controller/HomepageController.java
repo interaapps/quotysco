@@ -34,13 +34,13 @@ public class HomepageController extends HttpController {
             date.setTime(System.currentTimeMillis() - (1000 * 60 * 60 * 24 * 4));
             query.where("createdAt", ">", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
         }
+        pagination.total = query.count();
+
         pagination.data = query
                 .limit(pagination.page - 1 < 0 ? 0 : (pagination.page - 1) * pagination.pageSize, pagination.pageSize < 0 ? 5 : pagination.pageSize).get()
                 .stream()
                 .map(post -> new PostResponse(post, null, true, null, true, false, true, exchange.attrib("session")))
                 .collect(Collectors.toList());
-
-        pagination.total = query.count();
 
         return pagination;
     }
@@ -51,13 +51,13 @@ public class HomepageController extends HttpController {
 
         Query<Post> query = Repo.get(Post.class).query().order("createdAt", true).where("state", "PUBLISHED");
 
+        pagination.total = query.count();
+
         pagination.data = query
                 .limit(pagination.page - 1 < 0 ? 0 : (pagination.page - 1) * pagination.pageSize, pagination.pageSize < 0 ? 5 : pagination.pageSize).get()
                 .stream()
                 .map(post -> new PostResponse(post, null, true, null, true, false, true, exchange.attrib("session")))
                 .collect(Collectors.toList());
-
-        pagination.total = query.count();
 
         return pagination;
     }
