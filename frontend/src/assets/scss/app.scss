@@ -138,33 +138,6 @@ html {
     }
   }
 
-  pre {
-      padding: 18px;
-      background: #262b39;
-      color: #FFF;
-      border-radius: 10px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      font-size: 19px;
-      overflow: auto;
-      &, * {
-        font-family: 'DM Mono';
-        font-weight: 400;
-      }
-  }
-
-  blockquote {
-    border-left: 3px solid #383838BB;
-    padding: 8px;
-    padding-left: 21px;
-    margin: 27px 0px;
-    p {
-        font-family: "Lora";
-        font-weight: 600;
-
-        font-style: italic;
-    }
-  }
   #categories {
     padding-left: 63px;
   }
@@ -289,13 +262,20 @@ html {
         letter-spacing: -0.6px;
     }
     h1 {
-        margin: 25px 0px 10px 0px; 
+        margin: 60px 0px 10px 0px; 
         font-size: 33px !important;
+    }
+    h1:first-child {
+        margin-top: 0px;
     }
     h2 {
         color: #5c5c5c;
-        margin: 30px 0px 20px 0px; 
+        margin: 20px 0px 20px 0px; 
         font-size: 29px !important;
+    }
+    hr {
+        border: 1px solid #DDD;
+        border-radius: 10px;
     }
     img {
         display: block;
@@ -303,6 +283,45 @@ html {
     }
     p {
         letter-spacing: -0.3px;
+    }
+    code {
+        background: #00000011;
+        padding: 0px 7px;
+        border-radius: 5px;
+    }
+    pre code {
+        background: transparent;
+        padding: 0px;
+        border-radius: 0px;
+    }
+    
+
+    pre {
+        padding: 14px;
+        background: #262b39;
+        color: #FFF;
+        border-radius: 10px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        font-size: 17px;
+        overflow: auto;
+        &, * {
+        font-family: 'DM Mono';
+        font-weight: 400;
+        }
+    }
+
+    blockquote {
+        border-left: 3px solid #383838BB;
+        padding: 8px;
+        padding-left: 21px;
+        margin: 27px 0px;
+        p {
+            font-family: "Lora";
+            font-weight: 600;
+
+            font-style: italic;
+        }
     }
     ul, ol {
         padding-left: 24px;
