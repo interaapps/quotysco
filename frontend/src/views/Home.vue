@@ -31,7 +31,7 @@
 
       <div  v-if="categories.length > 0">
         <div v-for="(category, i) of categories" :key="i">
-          <router-link :to="/category/+category.name" class="button" style="float: right">More</router-link>
+          <router-link :to="'/category/'+category.name" class="button" style="float: right">More</router-link>
           <h1>Category for you ({{category.name}})</h1>
           <div class="post-list"  v-if="category.data.length > 0">  
             <post v-for="post of category.data" :key="post.id" :post='post' />
@@ -40,12 +40,13 @@
       </div>
 
       <div class="posts" v-if="global_latest_posts.length > 0">
-        <router-link to="/trends" class="button" style="float: right">More</router-link>
+        <router-link to="/newest" class="button" style="float: right">More</router-link>
         <h1>Newest on Quotysco</h1>
         <div class="post-list">
           <post v-for="post of global_latest_posts" :key="post.id" :post='post' />
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -62,7 +63,7 @@ export default {
     categories: [],
   }),
   created(){
-    this.$store.state.pageTitle = `Beta`
+    this.$store.state.pageTitle = `Home`
     this.api.get("/api/v1/user/following_posts", {limit: 4})
       .then(this.api.handleRequest)
       .then(res=>{
@@ -75,7 +76,7 @@ export default {
         this.global_interesting_posts = res.data
       })
 
-    this.api.get("/api/v1/global/latest", {limit: (this.$store.state.auth.loggedIn ? 2 : 4), trending: 'true'})
+    this.api.get("/api/v1/global/latest", {limit: (this.$store.state.auth.loggedIn ? 2 : 4)})
       .then(this.api.handleRequest)
       .then(res=>{
         this.global_latest_posts = res.data

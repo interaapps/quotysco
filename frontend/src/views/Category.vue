@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div id="top">
+    <div id="category-top">
         <div class="content">
             <!-- RECOMMENDATIONS <div id="categories">
                 <router-link to="/category/hardware">Hardware</router-link>
@@ -79,52 +79,5 @@ export default {
   max-width: 1140px;
   padding: 10px;
   margin: auto;
-}
-
-.posts {
-    h1 {
-        margin-top: 60px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        color: #545454;
-    }
-    .post {
-        width: 48%;
-        margin-right: 2%;
-        vertical-align: top;
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-}
-
-#top {
-    height: 160px;
-    background: url(../assets/img/homebg.svg);
-    background-size: cover;
-    background-position: center;
-    padding-top: 60px;
-
-    h1 {
-        text-align: left;
-        font-size: 60px;
-        font-weight: 400;
-        margin-bottom: 30px;
-    }
-
-    #categories {
-        width: fit-content;
-        float: right;
-        margin-top: 25px;
-
-        a {
-            text-decoration: none;
-            color: #FFF;
-            background: #121212;
-            margin: 5px;
-            padding: 3px 18px;
-            border-radius: 6px;
-            font-size: 27px;
-        }
-    }
 }
 </style>

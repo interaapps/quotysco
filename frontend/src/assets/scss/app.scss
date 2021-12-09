@@ -211,10 +211,13 @@ html {
   }
   
   .user {
+      padding: 5px;
+      margin: -5px;
       margin-bottom: 10px;
       display: block;
       text-decoration: none;
       color: #434343;
+      border-radius: 10px;
       .profile-pic {
           border: #dddddd solid 3px;
           border-radius: 50%;
@@ -230,6 +233,9 @@ html {
           margin-left: 16px;
           font-weight: 500;
       }
+      &:hover {
+          background: #00000008;
+      }
   }
 
   .date {
@@ -237,18 +243,19 @@ html {
       float: right;
       font-size: 20px;
       color: #a5a5a5;
-      margin-right: 20px;
-      margin-top: 9px;
+      padding-right: 20px;
+      padding-top: 8px;
+      padding-bottom: 7px;
   }
 }
 
 .big-action-button {
     border: #3EE1CE 2px solid;
     color: #3EE1CE;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 500;
     border-radius: 6px;
-    padding: 10px 20px;
+    padding: 7px 20px;
     cursor: pointer;
     display: inline-block;
     text-align: center;
@@ -372,7 +379,37 @@ label {
 ::-moz-selection, ::selection {
     background: #3EE1CE33;
 }
-  
+
+#category-top {
+    height: 160px;
+    background: url(../img/homebg.svg);
+    background-size: cover;
+    background-position: center;
+    padding-top: 60px;
+
+    h1 {
+        text-align: left;
+        font-size: 60px;
+        font-weight: 400;
+        margin-bottom: 30px;
+    }
+
+    #categories {
+        width: fit-content;
+        float: right;
+        margin-top: 25px;
+
+        a {
+            text-decoration: none;
+            color: #FFF;
+            background: #121212;
+            margin: 5px;
+            padding: 3px 18px;
+            border-radius: 6px;
+            font-size: 27px;
+        }
+    }
+}
 
 @media screen and (max-width: 720px) {
     .post-list {

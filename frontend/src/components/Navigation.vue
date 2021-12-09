@@ -47,7 +47,7 @@
                             </a>
                         </div>
                     </div>
-                    <a v-else id="login-button" @click="login" class="big-action-button">LOGIN</a>
+                    <a v-else id="login-button" @click="login" style="margin-top: 3.5px;" class="big-action-button">LOGIN</a>
                 </div>
             </div>
         </div>

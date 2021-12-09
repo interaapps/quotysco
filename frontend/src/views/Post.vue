@@ -6,7 +6,7 @@
             <h1>{{post.title}}<i class="uil uil-lock" style="margin-left:10px" v-if="post.state != 'PUBLISHED'" /></h1>
             <img v-if="post.image" id="post-banner" :src="post.image">
 
-            <span class="date">{{getDate()}}</span>
+            <span class="date" :title="this.post.created_at">{{getDate()}}</span>
             <router-link to="." class="user">
                 <img v-if="post.blog" class="profile-pic" :src="post.blog.image" alt="">
                 <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
@@ -136,7 +136,6 @@ export default {
     },
 
     getDate(){
-        
         const date = new Date(this.post.created_at.replace(" ", "T"))
         return (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()])+" "+date.getDate()+(date.getFullYear() == new Date().getFullYear() ? '' : " "+date.getFullYear())
         

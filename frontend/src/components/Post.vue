@@ -7,8 +7,9 @@
                 <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
                 <span>{{post.blog.display_name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
             </div>
-            <img v-if="post.image" class="post-banner" :src="post.image" alt="">
             <h1>{{post.title}}<i class="uil uil-lock" style="margin-left:10px" v-if="post.state != 'PUBLISHED'" /></h1>
+
+            <img v-if="post.image" class="post-banner" :src="post.image" alt="">
 
             <div class="action-button">
                 <div class="action-button" :class="{liked:post.liked}" :style="{color: post.liked ? '#FF4343' : '#767676'}">
@@ -30,10 +31,13 @@ export default {
         post: {default: {}}
     },
     methods: {
+        
         getDate(){
             const date = new Date(this.post.created_at.replace(" ", "T"))
-            return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()
-        }
+            return (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()])+" "+date.getDate()+(date.getFullYear() == new Date().getFullYear() ? '' : " "+date.getFullYear())
+            
+            //return this.post.created_at
+        },
     }
 }
 </script>
@@ -54,8 +58,7 @@ export default {
     .post-banner {
         width: 100%;
         border-radius: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
+        margin-top: 15px;
     }
 
     .user {
@@ -80,7 +83,7 @@ export default {
         float: right;
         font-size: 20px;
         color: #808080;
-        margin-right: 10px;
+        // margin-right: 10px;
         margin-top: 8px;
         font-weight: 500;
     }

@@ -33,6 +33,18 @@ const routes = [
     component: () => import('../views/Following.vue')
   },
   {
+    path: '/newest',
+    name: 'Newest',
+    meta: { navNoBG: true },
+    component: () => import('../views/Newest.vue')
+  },
+  {
+    path: '/trends',
+    name: 'Trending',
+    meta: { navNoBG: true },
+    component: () => import('../views/Trending.vue')
+  },
+  {
     path: '/category/:name',
     name: 'Category',
     meta: {
