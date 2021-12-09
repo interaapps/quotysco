@@ -44,6 +44,7 @@ public class PostMetaController extends HttpController {
         Map<String, String> tags = new HashMap<>();
         tags.put("og:site_name", "Quotysco");
         tags.put("og:type", "article");
+        tags.put("twitter:card", "summary");
 
         try {
             Blog blog = Blog.getByName(blogName);
@@ -92,7 +93,7 @@ public class PostMetaController extends HttpController {
         Map<String, String> tags = new HashMap<>();
         tags.put("og:site_name", "Quotysco");
         tags.put("og:type", "blog");
-
+        tags.put("twitter:card", "summary");
 
         try {
             Blog blog = Blog.getByName(blogName);
@@ -119,7 +120,8 @@ public class PostMetaController extends HttpController {
     private String tagsToHTML(Map<String, String> map){
         StringBuilder out = new StringBuilder();
         map.forEach((key, value) -> {
-            out.append("<meta property=\"").append(StringEscapeUtils.escapeHtml3(key.replace("ä", ""))).append("\" content=\"").append(StringEscapeUtils.escapeHtml3(value)/*.replaceAll("\n", "\\n")*/).append("\" />");
+            String name = StringEscapeUtils.escapeHtml3(key.replace("ä", ""));
+            out.append("<meta property=\"").append(name).append("\" name=\"").append(name).append("\" content=\"").append(StringEscapeUtils.escapeHtml3(value)/*.replaceAll("\n", "\\n")*/).append("\" />");
         });
         return out.toString();
     }
