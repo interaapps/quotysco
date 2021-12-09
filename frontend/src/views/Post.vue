@@ -47,10 +47,12 @@
     </div>
     <div style="background: #EEEEEE43; margin-top: 80px;">
         <div class="contents">
-            <div class="posts">
+            <div class="posts" v-if="moreUserPosts.length > 1">
                 <h1>More by {{post.blog.name}}</h1>
                 <div class="post-list">
-                    <post v-for="post of moreUserPosts" :key="post.id" :post="post" />
+                    <template v-for="userPost of moreUserPosts">
+                        <post :key="userPost.id" v-if="post.id != userPost.id" :post="userPost" />
+                    </template>
                 </div>
             </div>
         </div>
@@ -76,7 +78,9 @@ const markdown = require('markdown-it')({
             }
         }
         return str;
-    }
+    },
+    breaks: true
+    
 });
 
 export default {

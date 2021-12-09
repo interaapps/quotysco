@@ -113,7 +113,7 @@ export default {
     z-index: 1000;
     transition: 0.2s background;
 
-    border-bottom: 2px solid rgb(240, 240, 240);
+    border-bottom: 2px solid #89898932;
     #nav-contents {
         background: #FFF;
     }
@@ -161,6 +161,7 @@ export default {
                 color: #c2c2c2;
                 opacity: 0;
                 transition-delay: 0s;
+                letter-spacing: -0.3px;
             }
             #logo-bg {
                 width: 160px;
