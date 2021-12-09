@@ -52,8 +52,11 @@ public class PostMetaController extends HttpController {
                 Post post = Post.getByBlogAndUrl(blog, postName);
 
                 if (post != null) {
-                    tags.put("og:title", post.title+ " | "+(blog.displayName != null ? blog.displayName : blog.name));
-                    tags.put("article:author", blog.displayName != null ? blog.displayName : blog.name);
+                    String blogDisplayName = blog.displayName != null ? blog.displayName : blog.name;
+                    String title = post.title+ " | "+blogDisplayName;
+                    tags.put("og:title", title);
+                    tags.put("title", title);
+                    tags.put("article:author", blogDisplayName);
                     if (post.createdAt != null)
                         tags.put("article:published_time", post.createdAt.toString());
                     if (post.updatedAt != null)
@@ -73,6 +76,7 @@ public class PostMetaController extends HttpController {
                         if ("TEXT".equals(content.get("type"))) {
                             tags.put("og:description", (String) content.get("contents"));
                             tags.put("twitter:description", (String) content.get("contents"));
+                            tags.put("description", (String) content.get("contents"));
                             break;
                         }
                     }
@@ -98,9 +102,12 @@ public class PostMetaController extends HttpController {
         try {
             Blog blog = Blog.getByName(blogName);
             if (blog != null) {
-                tags.put("og:title", blog.displayName != null ? blog.displayName : blog.name);
+                String blogDisplayName = blog.displayName != null ? blog.displayName : blog.name;
+                tags.put("og:title", blogDisplayName);
+                tags.put("title", blogDisplayName);
                 tags.put("og:description", blog.description);
                 tags.put("twitter:description", blog.description);
+                tags.put("description", blog.description);
 
                 String url = QuotyscoBackend.getInstance().getConfig().get("server.name") + "/" + blogName;
                 tags.put("og:url", url);
