@@ -24,7 +24,7 @@ html {
 }
 
 .contents {
-  max-width: 1000px;
+  max-width: 900px;
   padding: 10px;
   margin: auto;
 }
@@ -39,7 +39,7 @@ html {
         
       color: #545454;
       font-weight: 500;
-      font-size: 36px;
+      font-size: 33px;
       margin-bottom: 35px;
       border: none;
       outline: none;
@@ -73,6 +73,7 @@ html {
           user-select: none;
           border: #89898932 solid 2px;
           box-shadow: 0px 0px 17px 0px #00000008;
+          margin: 20px 0px;
       }
 
       iframe {
@@ -93,6 +94,9 @@ html {
     vertical-align: top;
     width: 45px;
     color: #767676;
+    position: sticky;
+    top: 150px;
+
     .action-button {
         cursor: pointer;
         display: block;
@@ -135,6 +139,25 @@ html {
             }
         }
     
+    }
+    .progress {
+        display: block;
+        height: 6px;
+        width: 62%;
+        margin: auto;
+        background: #00000011;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: 0.3s;
+        div {
+            display: block;
+            height: 100%;
+            background: #3EE1CE;
+            border-radius: 10px;
+        }
+    }
+    @media screen and (max-width: 720px) {
+        position: initial;
     }
   }
 
@@ -186,11 +209,13 @@ html {
   .user {
       padding: 5px;
       margin: -5px;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       display: block;
       text-decoration: none;
       color: #434343;
       border-radius: 10px;
+      min-height: 52px;
+      
       .profile-pic {
           border: #dddddd solid 3px;
           border-radius: 50%;
@@ -198,6 +223,7 @@ html {
           height: 42px;
           margin: 0px 2px;
           vertical-align: middle;
+          transition: 0.3s;
       }
 
       span {
@@ -208,6 +234,18 @@ html {
       }
       &:hover {
           background: #00000008;
+      }
+      &.is-pinned {
+            .profile-pic {
+                position: fixed;
+                top: 90px;
+                @media screen and (max-width: 720px) {
+                    position: initial;
+                }
+            }
+            span {
+                opacity: 0;
+            }
       }
   }
 
@@ -228,7 +266,7 @@ html {
     font-size: 19px;
     font-weight: 500;
     border-radius: 6px;
-    padding: 7px 20px;
+    padding: 7px 15px;
     cursor: pointer;
     display: inline-block;
     text-align: center;
@@ -262,17 +300,28 @@ html {
         letter-spacing: -0.6px;
     }
     h1 {
-        margin: 60px 0px 10px 0px; 
-        font-size: 33px !important;
+        margin: 60px 0px 20px 0px; 
+        font-size: 29px !important;
     }
     h1:first-child {
         margin-top: 0px;
     }
     h2 {
         color: #5c5c5c;
-        margin: 20px 0px 20px 0px; 
-        font-size: 29px !important;
+        margin: 50px 0px 20px 0px; 
+        font-size: 27px !important;
     }
+
+    h3 {
+        margin: 40px 0px 18px 0px; 
+        font-size: 24px !important;
+    }
+
+    h4 {
+        margin: 35px 0px 13px 0px; 
+        font-size: 21px !important;
+    }
+
     hr {
         border: 1px solid #DDD;
         border-radius: 10px;
@@ -312,15 +361,16 @@ html {
     }
 
     blockquote {
-        border-left: 3px solid #383838BB;
-        padding: 8px;
+        border-left: 3px solid #666666bb;
+        padding: 6px;
         padding-left: 21px;
-        margin: 27px 0px;
+        margin: 25px 0px;
         p {
             font-family: "Lora";
             font-weight: 600;
 
             font-style: italic;
+            font-size: 20px;
         }
     }
     ul, ol {
@@ -408,9 +458,14 @@ label {
 
     h1 {
         text-align: left;
-        font-size: 60px;
+        font-size: 50px;
         font-weight: 400;
         margin-bottom: 30px;
+        @media screen and (max-width: 720px) {
+            font-size: 35px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
     }
 
     #categories {

@@ -65,9 +65,12 @@
                     </div>
                 </div>
                 <div class="add-contents">
-                    <i @click="addElement({type: 'TEXT', contents: 'Hello world!'})" style="font-size: 32px; padding: 1px" class="uil uil-text"></i>
-                    <i @click="$refs.addPicInput.click()" class="uil uil-scenery"></i>
-                    <i @click="addElement({ type: 'YOUTUBE', id: getYouTubeURL(prompt('Please enter a YouTube URL')) })" class="uil uil-presentation-play"></i>
+                    <i @click="addElement({type: 'TEXT', contents: ''})" class="uil uil-paragraph" />
+                    <i @click="addElement({type: 'TEXT', contents: '# Title'})" style="font-size: 32px; padding: 1px" class="uil uil-text" />
+                    <i @click="$refs.addPicInput.click()" class="uil uil-scenery" />
+                    <i @click="addElement({type: 'TEXT', contents: '```javascript\n// Code here\n```'})" class="uil uil-arrow" />
+                    <i @click="addElement({type: 'TEXT', contents: '---'})" class="uil uil-grip-horizontal-line" />
+                    <i @click="addElement({ type: 'YOUTUBE', id: getYouTubeURL(prompt('Please enter a YouTube URL')) })" class="uil uil-presentation-play" />
                     <!--<i class="uil uil-arrow"></i>-->
 
                     <img @click="addElement({ type: 'PASTEFY', id: getPastefyURL(prompt('Please enter a Pastefy URL')) })" src="https://cdn.interaapps.de/icon/interaapps/pastefy.png">
@@ -117,7 +120,7 @@ import PastefyEmbed from "../components/external/PastefyEmbed";
 import Modal from '../components/Modal.vue';
 export default {
     data: ()=>({
-        currentBlog: {type: "USER","image":"https://cdn.interaapps.de/service/accounts/images/users/53_1393079f1b63bdc89b414e3e247925de89126637fd0fca24fa448a1c0b8fade5849d518fc3dc6b67645bced3da502b4a80327493ebc074de12b3b5b6546d5fc3.png","updated_at":"2021-05-24 17:49:40","success":true,"name":"@JulianFun123","description":"My new awesome personal Blog!","created_at":"2021-05-24 17:49:40","layout_type":"LEFT_NAVIGATION","id":1,"display_name":"JulianFun123"},
+        currentBlog: {},
         post: {
             title: "",
             contents: {
@@ -139,6 +142,7 @@ export default {
         t:0
     }),
     created(){
+        this.currentBlog = this.$store.state.auth.blogs[0]
         this.api.get("/api/v1/categories")
             .then(this.api.handleRequest)
             .then(res => {
@@ -159,6 +163,11 @@ export default {
     components: {
         PastefyEmbed,
         Modal
+    },
+    watch: {
+        '$store.state.auth.blogs'(){
+            this.currentBlog = this.$store.state.auth.blogs[0]
+        }
     },
     methods: {
         resizeMeWithContents(element){
@@ -329,7 +338,7 @@ export default {
     }
 
     textarea, input {
-        border: 3px transparent solid;
+        border: 2.5px transparent solid;
         border-radius: 10px;
         background: none;
         resize: none;
@@ -342,6 +351,7 @@ export default {
 
     #action-button {
         opacity: 0.7;
+        top: 90px;
     }
 
     #title {
@@ -438,6 +448,9 @@ export default {
             background: #00000009;
             border-radius: 10px;
         }
+        &:first-child {
+            margin-left: 0px;
+        }
     }
     
     svg, img {
@@ -449,6 +462,7 @@ export default {
         vertical-align: middle;
         margin: 7px 5px;
         border: none !important;
+        margin: 0px !important;
         &:hover {
             background: #00000009;
             border-radius: 10px;
@@ -465,10 +479,14 @@ export default {
     border-radius: 10px;
 
     .user {
-        border-radius: 10px;
+        border-radius: 7px;
         display: block;
         cursor: pointer;
         padding: 5px 8px;
+        margin-bottom: 9px;
+        &:last-child {
+            margin-bottom: 0px;
+        }
         &:hover {
             background: #00000011;;
         }

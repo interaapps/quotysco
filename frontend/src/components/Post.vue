@@ -52,7 +52,7 @@ export default {
     h1 {
         font-weight: 500;
         color: #434343;
-        font-size: 26px;
+        font-size: 23px;
     }
 
     .post-banner {
@@ -66,14 +66,14 @@ export default {
         .profile-pic {
             border: #dddddd solid 3px;
             border-radius: 50%;
-            width:  40px;
-            height: 40px;
+            width:  38px;
+            height: 38px;
             vertical-align: middle;
         }
 
         span {
             vertical-align: middle;
-            font-size: 23px;
+            font-size: 21px;
             margin-left: 13px;
             font-weight: 500;
         }
@@ -81,7 +81,7 @@ export default {
 
     .date {
         float: right;
-        font-size: 20px;
+        font-size: 18px;
         color: #808080;
         // margin-right: 10px;
         margin-top: 8px;

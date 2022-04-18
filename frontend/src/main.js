@@ -14,8 +14,9 @@ Vue.config.productionTip = false
 const apiClient = new ApiClient(process.env.VUE_APP_BASE_URL, localStorage["session"])
 Vue.mixin({
   data:()=>({
-    api: apiClient
-  })
+    api: apiClient,
+  }),
+  methods: {}
 })
 
 apiClient.loadUser()

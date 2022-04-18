@@ -6,8 +6,7 @@ import org.javawebstack.orm.annotation.Column;
 import org.javawebstack.orm.annotation.Dates;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
 @Dates
 public class Post extends Model {
@@ -41,8 +40,9 @@ public class Post extends Model {
     @Column
     public Timestamp updatedAt;
 
+
     public static Post getByBlogAndUrl(Blog blog, String url){
-        return Repo.get(Post.class).where("blogId", blog.id).where("url", url).where("state", State.PUBLISHED).first();
+        return Repo.get(Post.class).where("blogId", blog.id).where("url", url).and(q->q.where("state", State.PUBLISHED).orWhere("state", State.UNLISTED)).first();
     }
 
     public static Post getByBlogAndUrl(String blogName, String url){

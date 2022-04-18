@@ -1,13 +1,13 @@
 <template>
   <div class="home">
-      
     <div class="contents">
-        <div id="post"> 
+        <div ref="post" id="post" v-if="post.created_at"> 
             <h1>{{post.title}}<i class="uil uil-lock" style="margin-left:10px" v-if="post.state != 'PUBLISHED'" /></h1>
             <img v-if="post.image" id="post-banner" :src="post.image">
 
             <span class="date" :title="this.post.created_at">{{getDate()}}</span>
-            <router-link to="." class="user">
+            
+            <router-link to="." class="user" ref="user">
                 <img v-if="post.blog" class="profile-pic" :src="post.blog.image" alt="">
                 <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
                 <span>{{post.blog.display_name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
@@ -22,14 +22,15 @@
                     <i class="uil uil-comment"></i>
                     <span>{{post.comment_count}}</span>
                 </div>
+                <div class="progress" :style="{opacity: scrollProgress ? 1 : 0}"><div :style="{width: scrollProgress*100+'%'}"/></div>
             </div>
 
-            <div id="post-contents">
+            <div ref="postContents" id="post-contents">
                 <div v-for="(part, i) of post.contents.contents" :key="i">
-                    <h1 v-if="part.type=='H1'">{{part.contents}}</h1>
-                    <h2 v-if="part.type=='H2'">{{part.contents}}</h2>
-                    <h3 v-if="part.type=='H3'">{{part.contents}}</h3>
-                    <h4 v-if="part.type=='H4'">{{part.contents}}</h4>
+                    <h1 v-if="part.type == 'H1'">{{part.contents}}</h1>
+                    <h2 v-if="part.type == 'H2'">{{part.contents}}</h2>
+                    <h3 v-if="part.type == 'H3'">{{part.contents}}</h3>
+                    <h4 v-if="part.type == 'H4'">{{part.contents}}</h4>
                     <div class="markdown-contents" v-else-if="part.type=='TEXT'" v-html="part.contents" />
                     <img v-else-if="part.type=='IMAGE'" :src="part.url" :width="part.width ? part.width : false" />
                     <iframe v-else-if="part.type=='YOUTUBE'" width="560" height="315" :src="'https://www.youtube-nocookie.com/embed/'+part.id" frameborder="0"  allowfullscreen></iframe>
@@ -87,10 +88,38 @@ export default {
   name: 'Home',
   data: ()=>({
       post: {contents: {}},
-      moreUserPosts: []
+      moreUserPosts: [],
+      scrollEvent: null,
+      scrollProgress: 0
   }),
   created(){
-      this.load();
+    this.load();
+  },
+  mounted(){
+      const interval = setInterval(()=>{
+          if (this.$refs.user) {
+                const observer = new IntersectionObserver( 
+                ([e]) => e.target.classList.toggle("is-pinned", e.intersectionRatio < 1),
+                { threshold: [1], }
+                );
+
+                observer.observe(this.$refs.user.$el);
+              clearInterval(interval)
+          }
+      }, 500)
+      
+      this.scrollEvent = () => {
+          this.scrollProgress = (window.scrollY - this.$refs.postContents.offsetTop) / (this.$refs.postContents.clientHeight - this.$refs.postContents.offsetTop)
+          if (this.scrollProgress > 1)
+            this.scrollProgress = 1
+          if (this.scrollProgress < 0)
+            this.scrollProgress = 0
+      }
+
+      window.addEventListener("scroll", this.scrollEvent)
+  },
+  beforeDestroy(){
+      window.removeEventListener("scroll", this.scrollEvent)
   },
   methods: {
      load(route = null){

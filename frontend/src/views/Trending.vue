@@ -55,7 +55,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content {
-  max-width: 1140px;
+  max-width: 900px;
   padding: 10px;
   margin: auto;
 }

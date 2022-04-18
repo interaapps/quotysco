@@ -114,6 +114,9 @@ export default {
     transition: 0.2s background;
 
     border-bottom: 2px solid #89898932;
+
+    height: 66px;
+
     #nav-contents {
         background: #FFF;
     }
@@ -132,9 +135,10 @@ export default {
 
     #nav-contents {
         margin: auto;
-        max-width: 1140px;
-        padding: 10px;
+        max-width: 900px; // 1140px;
+        padding: 6px;
         padding-bottom: 2px;
+        height: 64px;
         
         #logo {
             vertical-align: middle;
@@ -152,7 +156,7 @@ export default {
                 transition: 0.3s;
             }
             beta-text {
-                font-size: 23px;
+                font-size: 22px;
                 top: 5px;
                 white-space: nowrap;
                 position: absolute;
@@ -162,6 +166,9 @@ export default {
                 opacity: 0;
                 transition-delay: 0s;
                 letter-spacing: -0.3px;
+
+                max-width: 670px;
+                overflow: hidden;
             }
             #logo-bg {
                 width: 160px;
@@ -224,10 +231,11 @@ export default {
             #profile-pic {
                 display: inline-block;
                 position: relative;
+                margin-top: 2px;
                 &>img {
                     vertical-align: middle;
-                    width:  50px;
-                    height: 50px;
+                    width:  46px;
+                    height: 46px;
                     border: #ddd 3px solid;
                     border-radius: 50%;
                     object-fit: cover;
@@ -288,7 +296,7 @@ export default {
     .nav-icon-button {
         margin-right: 13px;
         i {
-            font-size: 25px;
+            font-size: 23px;
             vertical-align: middle;
             padding: 6px;
             color: #656565;
