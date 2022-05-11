@@ -396,6 +396,58 @@ html {
     }
 }
 
+.content-information {
+    display: block;
+    background: #00000011;
+    padding: 15px;
+    margin: 15px 0px;
+    border-radius: 10px;
+    color: #434343;
+    text-decoration: none;
+    position: relative;
+
+    img {
+        height: 50px;
+        margin: -5px;
+        margin-right: 20px;
+        vertical-align: middle;
+    }
+
+    span {
+        vertical-align: middle;
+    }
+
+    .uil-external-link-alt {
+        margin-left: 10px;
+        opacity: 0.7;
+        
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &.information {
+        background: #5b79ff22;
+        color: #5b79ff;
+    }
+
+    &.danger {
+        background: #ff525222;
+        color: #ff5252;
+    }
+
+    &.donation {
+        background: #FFF;
+        z-index: 100;
+        position: fixed;
+        bottom: 5px;
+        width: 900px;
+        box-shadow: 0px 0px 17px 0px #00000033;
+        max-width: calc(100% - 20px);
+    }
+}
+
 label {
     display: block;
     font-size: 18px;

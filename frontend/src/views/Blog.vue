@@ -4,6 +4,12 @@
         <div class="contents">
             <blog-layout :blog="blog">
                 <div>
+                    <a v-for="contentInfo of blog.content_information" :key="contentInfo.id" target="_blank" class="content-information" :href="contentInfo.link" :class="[contentInfo.level.toLowerCase()]">
+                        <img v-if="contentInfo.logo" :src="contentInfo.logo">
+                        <span>{{contentInfo.information}}</span>
+                        <i v-if="contentInfo.link" class="uil uil-external-link-alt" />
+                    </a>
+
                     <post v-for="post of posts" :key="post.id" :post='post' />
                     <a @click="loadPage(postsPagination.page+1)" class="big-action-button" v-if="!(postsPagination.page >= postsPagination.pages)">LOAD MORE</a>
                 </div>

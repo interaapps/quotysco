@@ -12,6 +12,12 @@
                 <!--<span>{{post.blog.type == 'USER' ? post.author.name : post.author.name+' @ '+post.blog.name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>-->
                 <span>{{post.blog.display_name}} <i class="uil uil-check-circle verified-badge" v-if="post.blog.verified" /></span>
             </router-link>
+
+            <a v-for="contentInfo of [...post.content_information, ...post.blog.content_information]" :key="contentInfo.id" target="_blank" class="content-information" :href="contentInfo.link" :class="[contentInfo.level.toLowerCase()]">
+                <img v-if="contentInfo.logo" :src="contentInfo.logo">
+                <span>{{contentInfo.information}}</span>
+                <i v-if="contentInfo.link" class="uil uil-external-link-alt" />
+            </a>
             
             <div id="action-button">
                 <div @click="like" class="action-button" :class="{liked: post.liked}">

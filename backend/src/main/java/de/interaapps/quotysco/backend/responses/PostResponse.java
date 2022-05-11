@@ -33,6 +33,8 @@ public class PostResponse extends LikedPostResponse {
     public Timestamp createdAt;
     public Timestamp updatedAt;
 
+    public List<ContentInformationType> contentInformation;
+
     public PostResponse(Post post, Blog blog, boolean loadBlog, User user, boolean loadUser, boolean loadCategories, boolean loadLikes, Session currentUser){
         id = post.id;
         url = post.url;
@@ -74,6 +76,16 @@ public class PostResponse extends LikedPostResponse {
         }
 
         success = true;
+    }
+
+    public PostResponse fetchContentInformation(){
+        contentInformation = Repo.get(ContentInformationType.class)
+                .whereExists(ContentInformation.class,
+                        q -> q.where("contentType", ContentInformation.ContentType.POST)
+                              .where("contentId", id)
+                              .where(ContentInformation.class, "contentInformation", "=", ContentInformationType.class, "id")).get();
+        blog.fetchContentInformation();
+        return this;
     }
 
 }

@@ -32,7 +32,7 @@ public class PostController extends HttpController {
         if (post == null)
             throw new NotFoundException();
 
-        PostResponse postResponse = new PostResponse(post, blog, false, null, true, true, true, exchange.attrib("session"));
+        PostResponse postResponse = new PostResponse(post, blog, false, null, true, true, true, exchange.attrib("session")).fetchContentInformation();
         if (user != null) {
             postResponse.blog.memberOf = blog.getUser(user) != null;
 

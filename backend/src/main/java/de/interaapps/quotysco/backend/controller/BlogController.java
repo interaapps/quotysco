@@ -48,7 +48,7 @@ public class BlogController extends HttpController {
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
-        BlogResponse blogResponse = new BlogResponse(blog);
+        BlogResponse blogResponse = new BlogResponse(blog).fetchContentInformation();
 
         if (user != null) {
             blogResponse.following = user.isFollowing(blog);
