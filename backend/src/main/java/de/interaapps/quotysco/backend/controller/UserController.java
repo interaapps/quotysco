@@ -40,6 +40,8 @@ public class UserController extends HttpController {
     @Get("/blogs")
     @With("auth")
     public ListResponse<BlogResponse> getMyBlog(@Attrib("session") Session session,  @Attrib("user") User user){
+        session.checkPermission("blogs:read");
+
         return new ListResponse<>(Repo.get(Blog.class)
                 .whereExists(BlogUser.class, blogUserQuery -> blogUserQuery.where("userId", user.id).where(Blog.class, "id", "=", BlogUser.class, "blogId"))
                 .get().stream().map(BlogResponse::new).collect(Collectors.toList()));
@@ -47,7 +49,9 @@ public class UserController extends HttpController {
 
     @Get("/following_posts")
     @With("auth")
-    public ListResponse<PostResponse> getFollowingPosts(Exchange exchange, @Attrib("user") User user){
+    public ListResponse<PostResponse> getFollowingPosts(Exchange exchange, @Attrib("user") User user, @Attrib("session") Session session){
+        session.checkPermission("following_blogs:read");
+
         List<PostResponse> list;
 
         int limit = 100000;

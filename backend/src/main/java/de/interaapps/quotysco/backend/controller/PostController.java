@@ -45,6 +45,7 @@ public class PostController extends HttpController {
     @Put("/{blog}/{name}")
     @With("auth")
     public ActionResponse updatePost(@Body PostEditRequest request, @Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+
         ActionResponse response = new ActionResponse();
         Blog blog = Repo.get(Blog.class).where("name", blogName).first();
 
@@ -56,7 +57,7 @@ public class PostController extends HttpController {
         if (blog != null) {
             BlogUser blogUser = blog.getUser(user);
             if (blogUser != null) {
-                session.checkPermission("post:write");
+                session.checkPermission("posts:write");
                 Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
                 if (post == null) {
                     post = new Post();
@@ -108,7 +109,7 @@ public class PostController extends HttpController {
 
         if (blog != null) {
             if (blog.getUser(user) != null) {
-                session.checkPermission("post:write");
+                session.checkPermission("posts:delete");
                 Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
                 if (post == null)
                     throw new NotFoundException();
@@ -124,11 +125,12 @@ public class PostController extends HttpController {
     @org.javawebstack.httpserver.router.annotation.Post("/{blog}/{name}/like")
     @With("auth")
     public ActionResponse likePost(@Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+
         ActionResponse response = new ActionResponse();
         Blog blog = Repo.get(Blog.class).where("name", blogName).first();
 
         if (blog != null) {
-            session.checkPermission("post:like");
+            session.checkPermission("liked_posts:write");
             Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
             if (post != null) {
                 UserPostLike userPostLike = Repo.get(UserPostLike.class).where("postId", post.id).where("userId", user.id).first();
@@ -157,11 +159,12 @@ public class PostController extends HttpController {
     @Get("/{blog}/{name}/liked")
     @With("auth")
     public LikedPostResponse likedPost(@Path("blog") String blogName, @Path("name") String name, @Attrib("session") Session session, @Attrib("user") User user){
+        session.checkPermission("liked_posts:read");
+
         LikedPostResponse response = new LikedPostResponse();
         Blog blog = Repo.get(Blog.class).where("name", blogName).first();
 
         if (blog != null) {
-            session.checkPermission("post:like");
             Post post = Repo.get(Post.class).where("url", name).where("blogId", blog.id).first();
             if (post != null) {
                 response.liked = user.likedPost(post);

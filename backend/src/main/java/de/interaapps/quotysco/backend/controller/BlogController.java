@@ -24,7 +24,9 @@ public class BlogController extends HttpController {
 
     @org.javawebstack.httpserver.router.annotation.Post
     @With("auth")
-    public ActionResponse createBlog(@Body CreateBlogRequest createBlogRequest, @Attrib("user") User user){
+    public ActionResponse createBlog(@Body CreateBlogRequest createBlogRequest, @Attrib("user") User user, @Attrib("session") Session session){
+        session.checkPermission("blogs:create");
+
         if (Blog.getByName(createBlogRequest.name) == null) {
             Blog blog = new Blog();
             blog.type = Blog.Type.TEAM;
@@ -44,15 +46,17 @@ public class BlogController extends HttpController {
     }
 
     @Get("/{name}")
-    public BlogResponse getBlog(@Path("name") String name, @Attrib("user") User user){
+    public BlogResponse getBlog(@Path("name") String name, @Attrib("user") User user, @Attrib("session") Session session){
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
         BlogResponse blogResponse = new BlogResponse(blog).fetchContentInformation();
 
         if (user != null) {
-            blogResponse.following = user.isFollowing(blog);
-            blogResponse.memberOf = blog.getUser(user) != null;
+            if (session.hasPermission("following_blogs:read"))
+                blogResponse.following = user.isFollowing(blog);
+            if (session.checkPermission("blogs:read"))
+                blogResponse.memberOf = blog.getUser(user) != null;
         }
         blogResponse.followerCount = blog.getFollowerCount();
         return blogResponse;
@@ -96,7 +100,7 @@ public class BlogController extends HttpController {
     }
 
     @Get("/{name}/posts")
-    public ListResponse<PostResponse> getBlogPosts(Exchange exchange, @Path("name") String name, @Attrib("user") User user){
+    public ListResponse<PostResponse> getBlogPosts(Exchange exchange, @Path("name") String name, @Attrib("user") User user, @Attrib("session") Session session){
         List<PostResponse> list;
         Blog blog = Blog.getByName(name);
         if (blog == null)
@@ -113,7 +117,7 @@ public class BlogController extends HttpController {
         Query<Post> query = Repo.get(Post.class).where("blogId", blog.id);
         query.and(q1->{
             q1.where("state", "PUBLISHED");
-            if (user != null && blog.getUser(user) != null)
+            if (user != null && blog.getUser(user) != null && session.hasPermission("posts:read"))
                 q1.orWhere("state", "UNLISTED").orWhere("state", "DRAFT");
             return q1;
         });
@@ -136,7 +140,7 @@ public class BlogController extends HttpController {
     @org.javawebstack.httpserver.router.annotation.Post("/{name}/follow")
     @With("auth")
     public ActionResponse follow(Exchange exchange, @Path("name") String name, @Attrib("user") User user, @Attrib("session") Session session){
-        session.checkPermission("blog:follow");
+        session.checkPermission("following_blogs:write");
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
@@ -157,7 +161,7 @@ public class BlogController extends HttpController {
 
     @Get("/{name}/members")
     public ListResponse<BlogUserResponse> getMembers(Exchange exchange, @Path("name") String name, @Attrib("user") User user, @Attrib("session") Session session){
-        session.checkPermission("blog.members:read");
+        session.checkPermission("blogs.members:read");
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
@@ -167,7 +171,7 @@ public class BlogController extends HttpController {
 
     @Get("/{name}/members/{userid}")
     public BlogUserResponse getMember(Exchange exchange, @Path("name") String name, @Path("userid") String userId, @Attrib("user") User user, @Attrib("session") Session session){
-        session.checkPermission("blog.members:read");
+        session.checkPermission("blogs.members:read");
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
@@ -176,7 +180,7 @@ public class BlogController extends HttpController {
 
     @Delete("/{name}/members/{userid}")
     public ActionResponse removeMember(Exchange exchange, @Path("name") String name, @Path("userid") String userId, @Attrib("user") User user, @Attrib("session") Session session){
-        session.checkPermission("blog.members:read");
+        session.checkPermission("blogs.members:read");
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();
@@ -244,7 +248,9 @@ public class BlogController extends HttpController {
 
     @Get("/{name}/following")
     @With("auth")
-    public ActionResponse following(Exchange exchange, @Path("name") String name, @Attrib("user") User user){
+    public ActionResponse following(Exchange exchange, @Path("name") String name, @Attrib("user") User user, @Attrib("session") Session session){
+        session.checkPermission("following_blogs:read");
+
         Blog blog = Blog.getByName(name);
         if (blog == null)
             throw new NotFoundException();

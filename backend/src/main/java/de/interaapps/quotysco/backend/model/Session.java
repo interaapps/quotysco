@@ -21,7 +21,7 @@ public class Session extends Model {
     public String userId;
 
     @Column
-    private Type type = Type.LOGIN;
+    public Type type = Type.LOGIN;
 
     @Column
     private AbstractArray scopes;
